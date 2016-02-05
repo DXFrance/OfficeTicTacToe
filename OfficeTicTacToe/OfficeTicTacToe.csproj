@@ -116,6 +116,9 @@
     <Compile Include="Converters\PivotItemConverter.cs" />
     <Compile Include="Models\CacheManager.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Ressources\DataTemplates.xaml.cs">
+      <DependentUpon>DataTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DisconnectPage.xaml.cs">
       <DependentUpon>DisconnectPage.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
     <Page Include="AppShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ressources\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Ressources\StylesRessources.xaml">
       <SubType>Designer</SubType>

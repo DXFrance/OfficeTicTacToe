@@ -3,18 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:OfficeTicTacToe"
-    xmlns:conv="using:OfficeTicTacToe.Converters"
+       xmlns:rd="using:OfficeTicTacToe.Ressources"
+ xmlns:conv="using:OfficeTicTacToe.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Ressources/StylesRessources.xaml"/>
-             </ResourceDictionary.MergedDictionaries>
-            
+                <rd:DataTemplates  />
+            </ResourceDictionary.MergedDictionaries>
+
             <!--tenant microsoft-->
             <!--<x:String x:Key="ida:ClientID">75d21fc3-9287-4fe1-a04b-fc538e308a27</x:String>-->
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

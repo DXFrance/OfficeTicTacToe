@@ -298,7 +298,8 @@
                                TextWrapping="WrapWholeWords"
                                Foreground="#FF0070C0" Text="Tic Tac Toe !!!" />
 
-                   
+                    <Image Source="Assets/LogotypeMid.png" MaxWidth="300" Grid.Row="2" />
+
                     <Button Content="Login"  Click="LoginButton_Click" Grid.Row="3" HorizontalAlignment="Center" 
                             Foreground="White" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                             Style="{StaticResource EllipsisButton}" Background="#FF0070C0" 
@@ -326,6 +327,8 @@
                                TextWrapping="WrapWholeWords"
                                Foreground="#FF0070C0" Text="Connect to TicTacToe with your Office 365 account" />
 
+                    <Image Source="Assets/LogoMid.png" Grid.Row="2" MaxWidth="200" />
+                    
                     <Button Content="Login"  Grid.Row="4" HorizontalAlignment="Center" 
                             Foreground="White" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                             Style="{StaticResource EllipsisButton}" Background="#FF0070C0" 

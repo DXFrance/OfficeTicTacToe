@@ -42,7 +42,7 @@ namespace OfficeTicTacToe.Views
         {
             get
             {
-                return "next meetings";
+                return "office tic tac toe";
             }
         }
         public OfficeTicTacToes()
