@@ -31,9 +31,6 @@
                           Margin="10" IsActive="False" Name="ProgressRingLoader"
                           Foreground="#FF0070C0"
                           />
-            <TextBlock Grid.Row="1" Text="Loading ..." FontSize="18" 
-                       Margin="10"  HorizontalAlignment="Center" Foreground="#FF0070C0" />
-
             <Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="10" MaxWidth="200"  />

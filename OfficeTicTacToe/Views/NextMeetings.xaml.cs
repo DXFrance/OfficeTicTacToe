@@ -111,49 +111,46 @@ namespace OfficeTicTacToe.Views
         }
         public async Task Refresh(CancellationToken token, bool forceRefresh = false)
         {
-           
 
-            this.SetTitle("loading next meetings ...");
+
+
 
             StackPanelLoader.Visibility = Visibility.Visible;
             StackPanelLoader.Opacity = 1.0d;
 
-            ProgressRingLoader.Visibility = Visibility.Visible;
-        
-            ProgressRingLoader.IsActive = true;
-
-        
+            //ProgressRingLoader.Visibility = Visibility.Visible;
+            //ProgressRingLoader.IsActive = true;
 
 
-            DoubleAnimation animationOpacity = new DoubleAnimation();
-            animationOpacity.To = 0.0d;
-            animationOpacity.From = 1.0d;
-            Storyboard.SetTarget(animationOpacity, StackPanelLoader);
-            Storyboard.SetTargetProperty(animationOpacity, "Opacity");
+            //DoubleAnimation animationOpacity = new DoubleAnimation();
+            //animationOpacity.To = 0.0d;
+            //animationOpacity.From = 1.0d;
+            //Storyboard.SetTarget(animationOpacity, StackPanelLoader);
+            //Storyboard.SetTargetProperty(animationOpacity, "Opacity");
 
-            DoubleAnimation animationOpacity2 = new DoubleAnimation();
-            animationOpacity2.To = 1.0d;
-            animationOpacity2.From = 0.0d;
-        //    Storyboard.SetTarget(animationOpacity2, EventViewList);
-            Storyboard.SetTargetProperty(animationOpacity2, "Opacity");
+            //DoubleAnimation animationOpacity2 = new DoubleAnimation();
+            //animationOpacity2.To = 1.0d;
+            //animationOpacity2.From = 0.0d;
+            //Storyboard.SetTarget(animationOpacity2, EventViewList);
+            //Storyboard.SetTargetProperty(animationOpacity2, "Opacity");
 
-            Storyboard sb = new Storyboard();
-            sb.Children.Add(animationOpacity);
-            sb.Children.Add(animationOpacity2);
+            //Storyboard sb = new Storyboard();
+            //sb.Children.Add(animationOpacity);
+            //sb.Children.Add(animationOpacity2);
 
-            sb.Duration = animationOpacity.Duration = animationOpacity2.Duration = TimeSpan.FromMilliseconds(150);
+            //sb.Duration = animationOpacity.Duration = animationOpacity2.Duration = TimeSpan.FromMilliseconds(150);
 
-            sb.Completed += (s, o) =>
-            {
+            //sb.Completed += (s, o) =>
+            //{
 
-                ProgressRingLoader.IsActive = false;
-                ProgressRingLoader.Visibility = Visibility.Collapsed;
-                StackPanelLoader.Visibility = Visibility.Collapsed;
-                AppShell.Current.SetTitle("next meetings");
+            //    ProgressRingLoader.IsActive = false;
+            //    ProgressRingLoader.Visibility = Visibility.Collapsed;
+            //    StackPanelLoader.Visibility = Visibility.Collapsed;
+            //    AppShell.Current.SetTitle("next meetings");
 
-            };
+            //};
 
-             sb.Begin();
+            // sb.Begin();
 
         }
        
