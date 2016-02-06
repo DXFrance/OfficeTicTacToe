@@ -14,7 +14,7 @@ namespace OfficeTicTacToe.ViewModels
         private string _UserIdOpponent;
         private DateTime? _CreatedDate;
         private bool _IsTerminated;
-        private string _Board;
+        private string _Board = "         ";
         private int? _GameResult;
         private int? _CurrentPlayerIndex;
         private string _Winner;
@@ -85,6 +85,8 @@ namespace OfficeTicTacToe.ViewModels
             {
                 if (value == _Board)
                     return;
+                if ((value == null) || (value.Length < 9))
+                    _Board = "         ";
                 _Board = value;
                 RaisePropertyChanged();
             }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Messaging;
 using OfficeTicTacToe.Common;
-using OfficeTicTacToe.Common.Graph;
-using OfficeTicTacToe.Common.Models;
 using OfficeTicTacToe.Graph;
 using OfficeTicTacToe.Views;
 using System;

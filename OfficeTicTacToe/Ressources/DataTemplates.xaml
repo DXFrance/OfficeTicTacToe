@@ -14,6 +14,7 @@
     <conv:PivotItemConverter x:Key="PivotItemConverter" />
     <conv:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter" />
     <conv:NotBooleanVisibilityConverter x:Key="NotBooleanVisibilityConverter" />
+    <conv:BoardConverter x:Key="BoardConverter" />
 
   
     <DataTemplate x:DataType="viewmodels:UserViewModel"  x:Key="UserViewModelTemplate" >

@@ -110,6 +110,7 @@
     <Compile Include="Controls\PivotItemWaiter.xaml.cs">
       <DependentUpon>PivotItemWaiter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoardConverter.cs" />
     <Compile Include="Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="Converters\DateStringConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />

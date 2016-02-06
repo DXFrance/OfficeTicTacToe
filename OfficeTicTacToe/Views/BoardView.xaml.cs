@@ -77,7 +77,6 @@ namespace OfficeTicTacToe.Views
         public BoardView()
         {
             this.InitializeComponent();
-         
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
       
@@ -85,7 +84,6 @@ namespace OfficeTicTacToe.Views
         {
             base.OnNavigatedTo(e);
             Game = e.Parameter as GameViewModel;
-
             using (this.TokenSource = new CancellationTokenSource())
             {
                 try
@@ -183,8 +181,20 @@ namespace OfficeTicTacToe.Views
 
             // sb.Begin();
         }
-       
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button == null)
+                return;
+            var cell = Convert.ToInt16(button.Tag);
+            if ((cell < 0) || (cell > Game.Board.Length))
+                return;
+            var board = Game.Board.ToArray();
+            board[cell] = 'X';
+            Game.Board = new string(board);
+
+        }
     }
 
 
