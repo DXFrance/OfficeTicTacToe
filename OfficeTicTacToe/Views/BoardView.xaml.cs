@@ -28,7 +28,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
-using OfficeTicTacToe.Common.Models;
+
 using OfficeTicTacToe.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
