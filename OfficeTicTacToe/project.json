@@ -5,7 +5,8 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Microsoft.OData.ProxyExtensions": "1.0.35",
     "Microsoft.Office365.Discovery": "1.0.22",
-    "NotificationsExtensions.Win10": "10586.0.0"
+    "NotificationsExtensions.Win10": "10586.0.0",
+    "WindowsAzure.Messaging.Managed": "0.1.7.9"
   },
   "frameworks": {
     "uap10.0": {}

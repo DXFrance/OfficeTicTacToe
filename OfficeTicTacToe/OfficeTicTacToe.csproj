@@ -20,7 +20,8 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
-    <PackageCertificateKeyFile>OfficeTicTacToe_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>OfficeTicTacToe_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>A507FE86907A74B9DA94B07E25ACAE48DD714E7C</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -143,6 +144,7 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <None Include="OfficeTicTacToe_StoreKey.pfx" />
     <None Include="OfficeTicTacToe_TemporaryKey.pfx" />
     <None Include="project.json" />
     <None Include="Service References\Office365\ConnectedService.json" />
