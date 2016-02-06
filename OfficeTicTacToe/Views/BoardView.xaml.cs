@@ -155,8 +155,8 @@ namespace OfficeTicTacToe.Views
             if (Game != null)
                 await Game.Refresh();
 
-            //StackPanelLoader.Visibility = Visibility.Visible;
-            //StackPanelLoader.Opacity = 1.0d;
+            StackPanelLoader.Visibility = Visibility.Visible;
+            StackPanelLoader.Opacity = 1.0d;
 
             //ProgressRingLoader.Visibility = Visibility.Visible;
             //ProgressRingLoader.IsActive = true;
