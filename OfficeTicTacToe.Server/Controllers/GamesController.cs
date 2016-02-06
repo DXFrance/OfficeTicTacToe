@@ -38,9 +38,12 @@ namespace OfficeTicTacToe.Server.Controllers
 
 
         [HttpPost]
-        [Route("api/Games/Users/{userId}")]
-        public IQueryable<Game> MakeMove(string userId, Game game)
+        [Route("api/Games/Move/{userId}")]
+        [ResponseType(typeof(Move))]
+        public IHttpActionResult MakeMove(string userId, Game game)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var move = new Move();
             move.CreatedDate = DateTime.UtcNow;
@@ -51,12 +54,10 @@ namespace OfficeTicTacToe.Server.Controllers
             move.GameResult = game.GameResult;
             move.UserId = userId;
 
-            var games = from g in db.Games
-                        where ((g.UserIdCreator == userId) ||
-                               (g.UserIdOpponent == userId))
-                        select g;
+            db.Moves.Add(move);
+            db.SaveChanges();
 
-            return games;
+            return CreatedAtRoute("DefaultApi", new { id = move.Id }, move);
         }
 
 
