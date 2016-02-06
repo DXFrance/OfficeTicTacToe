@@ -13,10 +13,10 @@ namespace OfficeTicTacToe.Server.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TicTacToeEntities : DbContext
+    public partial class OfficeTicTacToeEntities : DbContext
     {
-        public TicTacToeEntities()
-            : base("name=TicTacToeEntities")
+        public OfficeTicTacToeEntities()
+            : base("name=OfficeTicTacToeEntities")
         {
         }
     
@@ -26,6 +26,5 @@ namespace OfficeTicTacToe.Server.Models
         }
     
         public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<Move> Moves { get; set; }
     }
 }

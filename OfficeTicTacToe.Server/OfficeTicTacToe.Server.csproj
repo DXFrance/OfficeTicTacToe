@@ -107,14 +107,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GamesController.cs" />
-    <Compile Include="Controllers\MovesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Game.cs">
-      <DependentUpon>TicTacToe.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Move.cs">
       <DependentUpon>TicTacToe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TicTacToe.Context.cs">
@@ -132,6 +128,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicTacToe.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\TicTacToeEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

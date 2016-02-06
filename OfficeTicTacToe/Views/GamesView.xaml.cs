@@ -91,7 +91,7 @@ namespace OfficeTicTacToe.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var games = await GameHelper.Current.GetGamesByUserId(UserViewModel.CurrentUser);
+            var games = await GameHelper.Current.GetGamesByUserIdAsync(UserViewModel.CurrentUser);
             if (games != null)
             {
                 Games.Clear();
@@ -218,7 +218,7 @@ namespace OfficeTicTacToe.Views
             game.CreatedDate = DateTime.Now;
             game.UserIdCreator = UserViewModel.CurrentUser;
             game.UserIdOpponent = user.UserPrincipalName;
-            game = await GameHelper.Current.CreateGame(game);
+            game = await GameHelper.Current.CreateGameAsync(game);
             AppShell.Current.Navigate(typeof(BoardView), game);
         }
         private void GamesListView_ItemClick(object sender, ItemClickEventArgs e)
