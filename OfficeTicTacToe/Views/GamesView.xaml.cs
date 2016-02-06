@@ -106,10 +106,25 @@ namespace OfficeTicTacToe.Views
                 }
             }
 
+            List<string> usersMail = new List<string>();
+            foreach(var g in Games)
+            {
+                usersMail.Add(g.UserIdCreator);
+                usersMail.Add(g.UserIdOpponent);
+            }
+
+            var usersMailTab = usersMail.Distinct().ToList();
+
+            await UserViewModel.UpdateUsersFromSharepointAsync(usersMailTab, CancellationToken.None);
+
             this.TeamWork.Clear();
 
             var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
             var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
+
+            if (me2.Count <= 0)
+                return;
+
             var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
 
             List<UserViewModel> users = new List<UserViewModel>();

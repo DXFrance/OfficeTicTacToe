@@ -52,4 +52,45 @@
         </Grid>
     </DataTemplate>
 
+
+    <DataTemplate x:DataType="viewmodels:GameViewModel"  x:Key="GameViewModelTemplate" >
+        <Grid Margin="0,0,0,0" Background="White" HorizontalAlignment="Stretch" Height="60">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="#C6C6C6C6" Grid.ColumnSpan="4" BorderThickness="1" />
+
+            <Grid Grid.Row="0">
+                <Image Name="WaitingImage" Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{x:Bind UserCreatorViewModel.Name}"
+                                       x:Phase="1"
+                                       Stretch="UniformToFill" />
+                <Image Name="AttendeeImage" Margin="5"  
+                                       x:Phase="3" 
+                                       
+                                       Source="{x:Bind UserCreatorViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+            </Grid>
+            <Grid Grid.Row="1">
+                <Image  Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{x:Bind UserCreatorViewModel.Name}"
+                                       x:Phase="1"
+                                       Stretch="UniformToFill" />
+                <Image  Margin="5"  
+                                       x:Phase="3" 
+                                       
+                                       Source="{x:Bind UserOpponentViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+            </Grid>
+
+        </Grid>
+    </DataTemplate>
+
 </ResourceDictionary>
