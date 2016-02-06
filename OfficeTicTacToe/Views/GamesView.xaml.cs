@@ -262,5 +262,30 @@ namespace OfficeTicTacToe.Views
             //GameCommand.Execute(null);
             AppShell.Current.Navigate(typeof(BoardView), game);
         }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = "jarvis@tictactoe.com";
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+
+        }
+
+      
+
+        private async void WorkTeamListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = (e.ClickedItem as UserViewModel).UserPrincipalName;
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+
+
+        }
     }
 }

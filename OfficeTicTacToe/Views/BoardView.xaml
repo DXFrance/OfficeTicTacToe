@@ -111,7 +111,7 @@
                     <TextBlock Text=" vs "  Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="{Binding UserIdOpponent}"  Style="{StaticResource HeaderTextBlockStyle}"/>-->
                 </StackPanel>
-                <Grid>
+                <Grid Margin="5" HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -122,6 +122,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Border BorderBrush="#C6C6C6C6" Grid.ColumnSpan="3" Grid.RowSpan="3" BorderThickness="2" />
+
                     <Button Tag="0" Grid.Row="0" Grid.Column="0" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell0Value, Mode=OneWay}" IsEnabled="{Binding Cell0Enabled}"/>
                     <Button Tag="1" Grid.Row="0" Grid.Column="1" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell1Value, Mode=OneWay}" IsEnabled="{Binding Cell1Enabled}"/>
                     <Button Tag="2" Grid.Row="0" Grid.Column="2" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell2Value, Mode=OneWay}" IsEnabled="{Binding Cell2Enabled}"/>

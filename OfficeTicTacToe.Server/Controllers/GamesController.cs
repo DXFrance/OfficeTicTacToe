@@ -116,8 +116,21 @@ namespace OfficeTicTacToe.Server.Controllers
             TicTacToeEngine engine = new TicTacToeEngine();
             engine.Initialise(game);
 
-            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+ 
+            if (game.UserIdOpponent == jarvisName)
+            {
+                var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
+                var isEnded = engine.MakeBestMove(isMachineTurn);
+                game.Board = engine.Board;
+            }
+            else
+            {
+                game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+
+            }
             game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+
+
             if (game.IsTerminated)
             {
                 var result = engine.GetResultState(game.Board);

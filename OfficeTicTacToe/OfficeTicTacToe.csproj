@@ -185,6 +185,7 @@
     <Content Include="Assets\Icon-pptx.png" />
     <Content Include="Assets\Icon-xlsx.png" />
     <Content Include="Assets\icon-zip.png" />
+    <Content Include="Assets\jarvis.PNG" />
     <Content Include="Assets\LogoColor.PNG" />
     <Content Include="Assets\LogoMid.png" />
     <Content Include="Assets\LogotypeMid.png" />
