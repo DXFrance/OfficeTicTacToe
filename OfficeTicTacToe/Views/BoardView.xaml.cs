@@ -28,6 +28,8 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using OfficeTicTacToe.Common.Models;
+using OfficeTicTacToe.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,7 +41,7 @@ namespace OfficeTicTacToe.Views
     public sealed partial class BoardView : IRefreshPage
     {
         private CancellationTokenSource tokenSource;
-
+        public GameViewModel Game { get; set; }
         public CancellationTokenSource TokenSource
         {
             get
@@ -82,6 +84,7 @@ namespace OfficeTicTacToe.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            Game = e.Parameter as GameViewModel;
 
             using (this.TokenSource = new CancellationTokenSource())
             {
@@ -179,7 +182,6 @@ namespace OfficeTicTacToe.Views
             //};
 
             // sb.Begin();
-
         }
        
 

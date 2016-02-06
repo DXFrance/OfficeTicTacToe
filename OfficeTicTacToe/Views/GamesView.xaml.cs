@@ -21,8 +21,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using OfficeTicTacToe.Common.Models;
-using OfficeTicTacToe.Common.Graph;
+using OfficeTicTacToe.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,7 +34,7 @@ namespace OfficeTicTacToe.Views
     {
         private static readonly object lockObject = new object();
         public ObservableCollection<UserViewModel> Users { get; set; }
-        public ObservableCollection<Game> Games { get; set; }
+        public ObservableCollection<GameViewModel> Games { get; set; }
         private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
         private CancellationTokenSource tokenSource;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -64,7 +63,7 @@ namespace OfficeTicTacToe.Views
         {
             this.InitializeComponent();
             Users = new ObservableCollection<UserViewModel>();
-            Games = new ObservableCollection<Game>();
+            Games = new ObservableCollection<GameViewModel>();
             AutoSuggestBox.Text = string.Empty;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
@@ -174,23 +173,16 @@ namespace OfficeTicTacToe.Views
                         this.IsRefreshButtonEnabled = false;
                         this.IsLoading = true;
                         Users.Clear();
-
                         List<Microsoft.Graph.IUser> allusers = await Search(sender.Text, TokenSource.Token);
-
                         this.ListViewResearch.Focus(FocusState.Programmatic);
-
                         // Updating all organizers
                         List<string> usersMail = new List<string>();
-
                         foreach (var ev in allusers)
                             usersMail.AddRange(allusers.Select(u => u.UserPrincipalName).ToList());
-
                         var distinctUsers = usersMail.Distinct().ToList();
                         await UserViewModel.UpdateUsersFromSharepointAsync(distinctUsers, TokenSource.Token);
-
                         foreach (var user in allusers)
                             Users.Add(UserViewModel.GetUser(user.UserPrincipalName));
-
                         this.IsLoading = false;
                     }
                     catch (TaskCanceledException ex)
@@ -214,16 +206,21 @@ namespace OfficeTicTacToe.Views
                 }
             }
         }
-        private void UserViewModel_ItemClick(object sender, ItemClickEventArgs e)
+        private async void UserViewModel_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e?.ClickedItem as UserViewModel;
-            if (item == null)
+            var user = e?.ClickedItem as UserViewModel;
+            if (user == null)
                 return;
-            item.UserCommand.Execute(null);
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = user.UserPrincipalName;
+            game = await GameHelper.Current.CreateGame(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
         }
         private void GamesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var game = e?.ClickedItem as Game;
+            var game = e?.ClickedItem as GameViewModel;
             if (game == null)
                 return;
             //GameCommand.Execute(null);

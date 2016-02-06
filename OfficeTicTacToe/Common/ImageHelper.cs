@@ -197,7 +197,7 @@ namespace OfficeTicTacToe.Common
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
 
             return null;

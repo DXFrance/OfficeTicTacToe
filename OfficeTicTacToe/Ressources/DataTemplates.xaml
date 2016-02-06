@@ -8,6 +8,7 @@
     xmlns:cm="using:OfficeTicTacToe.Common"
     xmlns:views="using:OfficeTicTacToe.Views"    
     xmlns:graph="using:OfficeTicTacToe.Graph"
+    xmlns:viewmodels="using:OfficeTicTacToe.ViewModels"
     xmlns:local="using:OfficeTicTacToe.Ressources">
 
     <conv:PivotItemConverter x:Key="PivotItemConverter" />
@@ -15,7 +16,7 @@
     <conv:NotBooleanVisibilityConverter x:Key="NotBooleanVisibilityConverter" />
 
   
-    <DataTemplate x:DataType="model:UserViewModel"  x:Key="UserViewModelTemplate" >
+    <DataTemplate x:DataType="viewmodels:UserViewModel"  x:Key="UserViewModelTemplate" >
         <Grid Margin="0,0,0,0" Background="White" HorizontalAlignment="Stretch" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

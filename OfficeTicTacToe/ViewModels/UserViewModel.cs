@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 
-namespace OfficeTicTacToe.Models
+namespace OfficeTicTacToe.ViewModels
 {
 
     public class UserViewModel : INotifyPropertyChanged

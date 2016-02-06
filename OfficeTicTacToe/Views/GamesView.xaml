@@ -27,8 +27,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <ListView
-                  Name="GamesListView"
+                        <ListView x:Name="GamesListView"
                   ItemsSource="{x:Bind Games, Mode=OneWay}" 
                   Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
                   HorizontalAlignment="Stretch"
@@ -39,7 +38,16 @@
                   IsItemClickEnabled="True"   
                   IsRightTapEnabled="False"
                   IsDoubleTapEnabled="False"
-                        />
+                  HorizontalContentAlignment="Stretch">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding UserIdCreator}" />
+                                        <TextBlock Text="{Binding UserIdOpponent}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Grid>
                 </PivotItem>
                 <PivotItem Header="New">

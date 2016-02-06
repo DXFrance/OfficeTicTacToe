@@ -219,7 +219,7 @@ namespace OfficeTicTacToe.Graph
                     catch (Exception ex)
                     {
                         Debug.WriteLine(ex.Message);
-                        SignOutAsync();
+                        SignOutAsync().Wait();
                         tcs.TrySetResult(false);
                     }
                     var isValid = !String.IsNullOrEmpty(currentToken);

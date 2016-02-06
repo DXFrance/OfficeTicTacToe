@@ -3,7 +3,6 @@ using Microsoft.OData.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeTicTacToe.Common;
-using OfficeTicTacToe.Common.Graph;
 using OfficeTicTacToe.Graph;
 using OfficeTicTacToe.Models;
 using OfficeTicTacToe.Views;
@@ -30,6 +29,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using OfficeTicTacToe.ViewModels;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238

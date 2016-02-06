@@ -9,8 +9,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using OfficeTicTacToe.ViewModels;
 
-namespace OfficeTicTacToe.Common.Graph
+namespace OfficeTicTacToe.Graph
 {
     public class GameHelper
     {
@@ -30,7 +31,7 @@ namespace OfficeTicTacToe.Common.Graph
             }
         }
 
-        public async Task<Game> CreateGame(Game game)
+        public async Task<GameViewModel> CreateGame(GameViewModel game)
         {
             try
             {
@@ -41,7 +42,7 @@ namespace OfficeTicTacToe.Common.Graph
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
 
-                return await this.PostAsync<Game>(uri, scontent);
+                return await this.PostAsync<GameViewModel>(uri, scontent);
             }
             catch (Exception ex)
             {
@@ -49,7 +50,7 @@ namespace OfficeTicTacToe.Common.Graph
                 return null;
             }
         }
-        public async Task UpdateGame(Game move)
+        public async Task UpdateGame(GameViewModel move)
         {
             try
             {
@@ -60,7 +61,7 @@ namespace OfficeTicTacToe.Common.Graph
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
 
-                await this.PutAsync<Game>(uri, scontent);
+                await this.PutAsync<GameViewModel>(uri, scontent);
             }
             catch (Exception ex)
             {
@@ -69,7 +70,7 @@ namespace OfficeTicTacToe.Common.Graph
             }
         }
 
-        public async Task<Move> MakeMove(string userId, Game game)
+        public async Task<Move> MakeMove(string userId, GameViewModel game)
         {
             try
             {
@@ -88,12 +89,12 @@ namespace OfficeTicTacToe.Common.Graph
             }
         }
 
-        public async Task<Game> GetGame(int id)
+        public async Task<GameViewModel> GetGame(int id)
         {
             try
             {
                 var uri = new Uri(ServerUri + "/api/Games/" + id);
-                return await this.GetAsync<Game>(uri);
+                return await this.GetAsync<GameViewModel>(uri);
             }
             catch (Exception ex)
             {
@@ -101,12 +102,12 @@ namespace OfficeTicTacToe.Common.Graph
                 return null;
             }
         }
-        public async Task<List<Game>> GetGames()
+        public async Task<List<GameViewModel>> GetGames()
         {
             try
             {
                 var uri = new Uri(ServerUri + "/api/Games");
-                return await this.GetAsync<List<Game>>(uri);
+                return await this.GetAsync<List<GameViewModel>>(uri);
             }
             catch (Exception ex)
             {
@@ -115,12 +116,12 @@ namespace OfficeTicTacToe.Common.Graph
             }
 
         }
-        public async Task<List<Game>> GetGamesByUserId(string userId)
+        public async Task<List<GameViewModel>> GetGamesByUserId(string userId)
         {
             try
             {
                  var uri = new Uri(ServerUri + "/api/Games/Users/" + System.Net.WebUtility.UrlEncode(userId) + "/");
-                return await this.GetAsync<List<Game>>(uri);
+                return await this.GetAsync<List<GameViewModel>>(uri);
             }
             catch (Exception ex)
             {
@@ -136,7 +137,7 @@ namespace OfficeTicTacToe.Common.Graph
             try
             {
                 var uri = new Uri(ServerUri + "/api/Games/" + id);
-                await this.DeleteAsync<Game>(uri);
+                await this.DeleteAsync<GameViewModel>(uri);
             }
             catch (Exception ex)
             {

@@ -122,9 +122,10 @@
     <Compile Include="Graph\SearchItem.cs" />
     <Compile Include="Graph\SharePointSearchHelper.cs" />
     <Compile Include="Models\CacheManager.cs" />
-    <Compile Include="Models\Game.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="Models\Move.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Ressources\DataTemplates.xaml.cs">
       <DependentUpon>DataTemplates.xaml</DependentUpon>
     </Compile>
