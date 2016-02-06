@@ -187,7 +187,7 @@ namespace OfficeTicTacToe.Server.Models
             return utility;
         }
 
-        private bool IsGameFullCompleted(string pGame)
+        public bool IsGameFullCompleted(string pGame)
         {
             bool terminal = false;          // Default condition
             if (pGame.IndexOf(' ') == -1) // Check if the grid is full
