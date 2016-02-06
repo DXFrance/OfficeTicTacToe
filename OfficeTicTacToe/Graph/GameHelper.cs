@@ -16,7 +16,7 @@ namespace OfficeTicTacToe.Graph
     public class GameHelper
     {
 
-        private const string ServerUri = "http://localhost:17225";
+        private const string ServerUri = "http://prod-officetictactoe.azurewebsites.net";
 
         private static GameHelper current;
 
@@ -50,7 +50,7 @@ namespace OfficeTicTacToe.Graph
                 return null;
             }
         }
-        public async Task UpdateGameAsync(GameViewModel move)
+        public async Task<GameViewModel> UpdateGameAsync(GameViewModel move)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace OfficeTicTacToe.Graph
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
 
-                await this.PutAsync<GameViewModel>(uri, scontent);
+                return await this.PutAsync<GameViewModel>(uri, scontent);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-
+                return null;
             }
         }
 

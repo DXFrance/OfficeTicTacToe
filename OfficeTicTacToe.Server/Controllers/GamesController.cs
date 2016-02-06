@@ -49,12 +49,13 @@ namespace OfficeTicTacToe.Server.Controllers
                 return BadRequest(ModelState);
 
             TicTacToeEngine engine = new TicTacToeEngine();
+            // game.Board = "  OX X   ";
             engine.Initialise(game);
 
-            var isMachineTurn = game.UserIdCurrent.ToLower().Trim() == jarvisName.ToLower().Trim();
+            var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
 
             var isEnded = engine.MakeBestMove(isMachineTurn);
-            game.UserIdCurrent = isMachineTurn ? userId : jarvisName;
+            game.UserIdCurrent = isMachineTurn ? jarvisName : userId;
             game.IsTerminated = isEnded;
             game.Board = engine.Board;
             if (game.IsTerminated)
@@ -64,6 +65,18 @@ namespace OfficeTicTacToe.Server.Controllers
                     game.UserIdWinner = jarvisName;
                 else
                     game.UserIdWinner = userId;
+            }
+
+            db.Entry(game).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch
+            {
+
             }
             return Ok(game);
 
@@ -84,7 +97,7 @@ namespace OfficeTicTacToe.Server.Controllers
         }
 
         // PUT: api/Games/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(Game))]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
@@ -95,6 +108,20 @@ namespace OfficeTicTacToe.Server.Controllers
             if (id != game.Id)
             {
                 return BadRequest();
+            }
+
+            TicTacToeEngine engine = new TicTacToeEngine();
+            engine.Initialise(game);
+
+            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+            game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+            if (game.IsTerminated)
+            {
+                var result = engine.GetResultState(game.Board);
+                if (result == TicTacToeEngine.TicTacToeResult.MachineWin)
+                    game.UserIdWinner = game.UserIdOpponent;
+                else
+                    game.UserIdWinner = game.UserIdCreator;
             }
 
             db.Entry(game).State = EntityState.Modified;
@@ -108,7 +135,25 @@ namespace OfficeTicTacToe.Server.Controllers
 
                 var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
 
+
                 await hub.SendWindowsNativeNotificationAsync(toast);
+
+                var payload = @"<toast>
+                                   <visual>
+                                       <binding template=""ToastText01"">
+                                           <text id=""1"">" + game.Id + @"</text>
+                                       </binding>
+                                   </visual>
+                                </toast>";
+
+                var headers = new Dictionary<string, string>();
+                headers.Add("Content-Type", "application/octet-stream");
+                headers.Add("X-WNS-Type", "wns/raw");
+
+                var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator;
+
+                //Notification notification = new WindowsNotification(payload, headers, tag);
+                //await hub.SendNotificationAsync(notification);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -122,7 +167,7 @@ namespace OfficeTicTacToe.Server.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(game);
         }
 
         // POST: api/Games
@@ -133,6 +178,22 @@ namespace OfficeTicTacToe.Server.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            TicTacToeEngine engine = new TicTacToeEngine();
+            engine.Initialise(game);
+
+            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+            game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+            if (game.IsTerminated)
+            {
+                var result = engine.GetResultState(game.Board);
+                if (result == TicTacToeEngine.TicTacToeResult.MachineWin)
+                    game.UserIdWinner = game.UserIdOpponent;
+                else
+                    game.UserIdWinner = game.UserIdCreator;
+            }
+
+
 
             db.Games.Add(game);
             db.SaveChanges();

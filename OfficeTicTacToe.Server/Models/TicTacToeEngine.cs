@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,7 @@ namespace OfficeTicTacToe.Server.Models
             Draw = 0,
             UserWin = -1
         }
-        private List<int> validOperators;
+        private ArrayList validOperators;
         private char machineChar;
         private char userChar;
 
@@ -30,6 +31,14 @@ namespace OfficeTicTacToe.Server.Models
         public void Initialise(Game game)
         {
             this.board = game.Board;
+
+            for(var i=0; i < board.Length -1; i++)
+            {
+                var c = board[i];
+                if (c == machineChar || c == userChar)
+                    MakeMove(i, (c == machineChar));
+            }
+
         }
         public TicTacToeEngine()
         {
@@ -40,33 +49,32 @@ namespace OfficeTicTacToe.Server.Models
             this.board += "   ";
             this.board += "   ";
             // Ensure we have a full set of operators (Positions 0->8)
-            validOperators = new List<int>();
+            validOperators = new ArrayList();
             for (int i = 0; i < 9; i++)
                 validOperators.Add(i);
         }
-      
+
         public bool MakeBestMove(bool isMachineTurn)
         {
             // Sanity check the calling class
             if (!IsGameFullCompleted(this.board))
             {
-                List<int> operators;
-                MinimaxValueSuccesors(out operators, 
-                    this.board, isMachineTurn, 
+                ArrayList operators;
+                MinimaxValueSuccesors(out operators,
+                    this.board, isMachineTurn,
                     this.validOperators);
-#if Debug
-			 		MessageBox.Show("I had " + operators.Count + " options. ", "C# Example Code",  MessageBoxButtons.OK, MessageBoxIcon.Information);
-#endif
+
+                Debug.WriteLine("I had " + operators.Count + " options. ");
                 // Select an operator at random
                 int liOperator = (int)operators[new Random().Next(operators.Count)];
-                // Apply the operator and remove it from the List<int> of valid operators
+                // Apply the operator and remove it from the ArrayList of valid operators
                 this.board = ApplyMove(liOperator, this.board, isMachineTurn);
                 this.validOperators.Remove(liOperator);
             }
             return (IsGameFullCompleted(this.board));           // If the game has finished return true
         }
 
-        
+
 
         public bool MakeMove(int viOperator, bool isMachineTurn)
         {
@@ -90,29 +98,29 @@ namespace OfficeTicTacToe.Server.Models
             return (substrPGame + character + substrPGame2);
         }
 
-        private TicTacToeResult MinimaxValueSuccesors(out List<int> pOperator, 
-            string pGame, bool pMaxTurn, List<int> pOperators)
+        private TicTacToeResult MinimaxValueSuccesors(out ArrayList pOperator,
+            string pGame, bool pMaxTurn, ArrayList pOperators)
         {
             TicTacToeResult value;
             TicTacToeResult maxValue = TicTacToeResult.UserWin;
             TicTacToeResult minValue = TicTacToeResult.MachineWin;
-            List<int> bestOps = new List<int>();
-            List<int> worstOps = new List<int>();
-            List<int> operatorsLeft;
+            ArrayList bestOps = new ArrayList();
+            ArrayList worstOps = new ArrayList();
+            ArrayList operatorsLeft;
             string workingGame;
             // Loop for all operators. If pMaxTurn return highest, else return lowest
             foreach (int lOperator in pOperators)
             {
                 // Apply the operator to the game
                 workingGame = ApplyMove(lOperator, pGame, pMaxTurn);
-               // operatorsLeft = pOperators.Clone();
-                operatorsLeft = pOperators.Select(item => item).ToList();
+                 operatorsLeft = (ArrayList)pOperators.Clone();
+                //operatorsLeft = pOperators.Select(item => item).ToList();
 
                 operatorsLeft.Remove(lOperator);
                 value = MinimaxValueForState(workingGame, pMaxTurn, operatorsLeft);
 
-                // If this a new best operator reset the List<int>
-                if (value > maxValue) bestOps = new List<int>();
+                // If this a new best operator reset the ArrayList
+                if (value > maxValue) bestOps = new ArrayList();
                 // Should we add this operator to our list
                 if (value >= maxValue)
                 {
@@ -120,8 +128,8 @@ namespace OfficeTicTacToe.Server.Models
                     maxValue = value;
                 }
 
-                // If this a new worst operator reset the List<int>
-                if (value < minValue) worstOps = new List<int>();
+                // If this a new worst operator reset the ArrayList
+                if (value < minValue) worstOps = new ArrayList();
                 // Should we add this operator to our list
                 if (value <= minValue)
                 {
@@ -130,15 +138,15 @@ namespace OfficeTicTacToe.Server.Models
                 }
             }
 
-            pOperator = pMaxTurn ? bestOps : worstOps;  // 'out' the relevant List<int>
+            pOperator = pMaxTurn ? bestOps : worstOps;  // 'out' the relevant ArrayList
             return (pMaxTurn ? maxValue : minValue);        // return the utility
         }
 
         // state; true = X turn, false = O turn
-        private TicTacToeResult MinimaxValueForState(string pGame, bool pMaxTurn, List<int> pOperators)
+        private TicTacToeResult MinimaxValueForState(string pGame, bool pMaxTurn, ArrayList pOperators)
         {
             TicTacToeResult lUtility;
-            List<int> dummy;
+            ArrayList dummy;
             // Is this a terminal state?
             if (IsGameFullCompleted(pGame))
                 lUtility = GetResultState(pGame);
@@ -182,7 +190,7 @@ namespace OfficeTicTacToe.Server.Models
             return utility;
         }
 
-        private bool IsGameFullCompleted(string pGame)
+        public bool IsGameFullCompleted(string pGame)
         {
             bool terminal = false;          // Default condition
             if (pGame.IndexOf(' ') == -1) // Check if the grid is full
