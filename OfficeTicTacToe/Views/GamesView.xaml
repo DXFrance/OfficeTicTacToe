@@ -42,15 +42,16 @@
                   IsItemClickEnabled="True"   
                   IsRightTapEnabled="False"
                   IsDoubleTapEnabled="False"
+                                  ItemTemplate="{StaticResource GameViewModelTemplate}"
                   HorizontalContentAlignment="Stretch">
-                            <ListView.ItemTemplate>
+                            <!--<ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
                                         <TextBlock Text="{Binding UserIdCreator}" />
                                         <TextBlock Text="{Binding UserIdOpponent}" />
                                     </StackPanel>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
+                            </ListView.ItemTemplate>-->
                         </ListView>
                     </Grid>
                 </PivotItem>

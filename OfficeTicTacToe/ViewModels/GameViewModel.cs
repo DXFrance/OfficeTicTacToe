@@ -54,6 +54,23 @@ namespace OfficeTicTacToe.ViewModels
                     return;
                 _UserIdCreator = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("UserCreatorViewModel");
+            }
+        }
+
+        public UserViewModel UserCreatorViewModel
+        {
+            get
+            {
+                return UserViewModel.GetUser(this.UserIdCreator);
+            }
+        }
+
+        public UserViewModel UserOpponentViewModel
+        {
+            get
+            {
+                return UserViewModel.GetUser(this.UserIdOpponent);
             }
         }
         public string UserIdOpponent
@@ -68,6 +85,8 @@ namespace OfficeTicTacToe.ViewModels
                     return;
                 _UserIdOpponent = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("UserOpponentViewModel");
+
             }
         }
         public char CurrentPawn

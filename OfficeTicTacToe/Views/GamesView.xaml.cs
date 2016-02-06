@@ -106,12 +106,16 @@ namespace OfficeTicTacToe.Views
                 }
             }
 
-            List<string> users = new List<string>();
+            List<string> usersMail = new List<string>();
             foreach(var g in Games)
             {
-                users.Add(g.UserIdCreator);
-                users.Add(g.UserIdOpponent);
+                usersMail.Add(g.UserIdCreator);
+                usersMail.Add(g.UserIdOpponent);
             }
+
+            var usersMailTab = usersMail.Distinct().ToList();
+
+            await UserViewModel.UpdateUsersFromSharepointAsync(usersMailTab, CancellationToken.None);
 
             this.TeamWork.Clear();
 
