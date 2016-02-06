@@ -99,6 +99,8 @@ namespace OfficeTicTacToe.Server.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(Game))]
+        [Route("api/Games/{id}/update")]
+        [HttpPost]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
