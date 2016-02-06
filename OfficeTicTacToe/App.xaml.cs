@@ -113,7 +113,7 @@ namespace OfficeTicTacToe
             //{
             //    game = await GameHelper.Current.GetJarvisMoveAsync("spertus@microsoft.com", game);
             //    Debug.WriteLine(game.Board);
-            //}
+            //} 
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
