@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using OfficeTicTacToe.Server.Models;
 using Microsoft.Azure.NotificationHubs;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace OfficeTicTacToe.Server.Controllers
 {
@@ -98,6 +99,8 @@ namespace OfficeTicTacToe.Server.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(Game))]
+        [Route("api/Games/{id}/update")]
+        [HttpPost]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
@@ -165,6 +168,9 @@ namespace OfficeTicTacToe.Server.Controllers
                 {
                     throw;
                 }
+            }
+            catch (Exception ex)
+            {
             }
 
             return Ok(game);
