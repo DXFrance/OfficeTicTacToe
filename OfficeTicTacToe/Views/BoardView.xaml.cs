@@ -181,7 +181,6 @@ namespace OfficeTicTacToe.Views
 
             // sb.Begin();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -193,9 +192,10 @@ namespace OfficeTicTacToe.Views
             var board = Game.Board.ToArray();
             board[cell] = 'X';
             Game.Board = new string(board);
-
+        }
+        private async void PutButton_Click(object sender, RoutedEventArgs e)
+        {
+            await GameHelper.Current.UpdateGame(Game);
         }
     }
-
-
 }

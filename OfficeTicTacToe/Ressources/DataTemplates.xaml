@@ -15,6 +15,7 @@
     <conv:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter" />
     <conv:NotBooleanVisibilityConverter x:Key="NotBooleanVisibilityConverter" />
     <conv:BoardConverter x:Key="BoardConverter" />
+    <conv:DebugConverter x:Key="DebugConverter" />
 
   
     <DataTemplate x:DataType="viewmodels:UserViewModel"  x:Key="UserViewModelTemplate" >
