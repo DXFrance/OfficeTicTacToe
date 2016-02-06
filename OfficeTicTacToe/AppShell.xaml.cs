@@ -82,7 +82,7 @@ namespace OfficeTicTacToe
 
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
-                    this.Navigate(typeof(OfficeTicTacToes));
+                    this.Navigate(typeof(BoardView));
             };
 
             var me = UserViewModel.GetUser(settings.Values["userEmail"].ToString());
@@ -90,11 +90,11 @@ namespace OfficeTicTacToe
             this.navLinks = new ObservableCollection<NavLink>()
             {
                 new NavLink() { Label = "TicTacToe", Symbol = Symbol.Play,
-                    DestPage = typeof(OfficeTicTacToes) },
+                    DestPage = typeof(BoardView) },
                   new NavLink() { Label = "Search", Symbol = Symbol.Find,
-                     DestPage = typeof(SearchPeople)},
+                     DestPage = typeof(GamesView)},
                 new NavLink() { Label = "Settings", Symbol = Symbol.Setting,
-                    DestPage = typeof(Settings) },
+                    DestPage = typeof(SettingsView) },
                 new NavLink() { Label = "Disconnect", Symbol = Symbol.Import,
                     DestPage = typeof(DisconnectPage) },
             };

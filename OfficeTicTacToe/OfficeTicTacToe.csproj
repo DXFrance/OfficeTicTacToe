@@ -121,14 +121,14 @@
     <Compile Include="Views\DisconnectPage.xaml.cs">
       <DependentUpon>DisconnectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NextMeetings.xaml.cs">
-      <DependentUpon>NextMeetings.xaml</DependentUpon>
+    <Compile Include="Views\OfficeTicTacToes.xaml.cs">
+      <DependentUpon>OfficeTicTacToes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchPeople.xaml.cs">
-      <DependentUpon>SearchPeople.xaml</DependentUpon>
+    <Compile Include="Views\GamesView.xaml.cs">
+      <DependentUpon>GamesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <None Include="OfficeTicTacToe_TemporaryKey.pfx" />
     <None Include="project.json" />
@@ -223,15 +223,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NextMeetings.xaml">
+    <Page Include="Views\OfficeTicTacToes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchPeople.xaml">
+    <Page Include="Views\GamesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings.xaml">
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
