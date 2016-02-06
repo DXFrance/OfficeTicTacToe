@@ -38,6 +38,8 @@ namespace OfficeTicTacToe
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            
         }
 
         private async void InitNotificationsAsync()
@@ -50,6 +52,7 @@ namespace OfficeTicTacToe
             try
             {
                 result = await hub.RegisterNativeAsync(channel.Uri);
+                
             }
             catch (RegistrationException ex)
             {
@@ -61,6 +64,8 @@ namespace OfficeTicTacToe
             {
                 Debug.WriteLine("Channel Registered: " + result.RegistrationId);
             }
+
+            
         }
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

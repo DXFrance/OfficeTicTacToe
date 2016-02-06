@@ -129,20 +129,19 @@ namespace OfficeTicTacToe.Server.Controllers
                 var payload = @"<toast>
                                    <visual>
                                        <binding template=""ToastText01"">
-                                           <text id=""1"">Hello from a .NET App!</text>
+                                           <text id=""1"">" + game.Id + @"</text>
                                        </binding>
                                    </visual>
                                 </toast>";
 
-                //var headers = new Dictionary<string, string>();
-                //headers.Add("Content-Type", "application/octet-stream");
-                //headers.Add("X-WNS-Type", "wns/raw");
+                var headers = new Dictionary<string, string>();
+                headers.Add("Content-Type", "application/octet-stream");
+                headers.Add("X-WNS-Type", "wns/raw");
 
-                //var tag = game.
+                var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator ;
 
                 //Notification notification = new WindowsNotification(payload, headers, tag);
                 //await hub.SendNotificationAsync(notification);
-
             }
             catch (DbUpdateConcurrencyException)
             {
