@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -284,7 +285,8 @@ namespace OfficeTicTacToe.ViewModels
         }
         private bool CellEnabled(int index)
         {
-            return (Board.Length > index) && (Board[index] == PAWN_EMPTY);
+            var r = (Board.Length > index) && (Board[index] == PAWN_EMPTY) && (UserIdCurrent == UserViewModel.CurrentUser);
+            return r;
         }
         public string UserIdWinner
         {
@@ -326,15 +328,19 @@ namespace OfficeTicTacToe.ViewModels
         }
         public async Task Update()
         {
+            Debug.WriteLine("Before=" + UserIdCurrent);
             var game = await GameHelper.Current.UpdateGameAsync(this);
+            if (game == null)
+                return;
+            Debug.WriteLine("After=" + game.UserIdCurrent);
             _InitialBoard = null;
-            Board = game.Board;
             UserIdCreator = game.UserIdCreator;
             UserIdOpponent = game.UserIdOpponent;
             UserIdCurrent = game.UserIdCurrent;
             UserIdWinner = game.UserIdWinner;
             CreatedDate = game.CreatedDate;
             IsTerminated = game.IsTerminated;
+            Board = game.Board;
         }
     }
 }

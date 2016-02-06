@@ -102,11 +102,11 @@ namespace OfficeTicTacToe
             //game.UserIdCurrent = game.UserIdCreator;
             //game.UserIdOpponent = "jarvis@tictactoe.com";
 
-            var games = await GameHelper.Current.GetGamesAsync();
+            //var games = await GameHelper.Current.GetGamesAsync();
 
-            var gameO = games[0];
+            //var gameO = games[0];
 
-            var gameP = await GameHelper.Current.UpdateGameAsync(gameO);
+            //var gameP = await GameHelper.Current.UpdateGameAsync(gameO);
 
 
             //while (!game.IsTerminated)
