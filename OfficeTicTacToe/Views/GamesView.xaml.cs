@@ -35,6 +35,9 @@ namespace OfficeTicTacToe.Views
         private static readonly object lockObject = new object();
         public ObservableCollection<UserViewModel> Users { get; set; }
         public ObservableCollection<GameViewModel> Games { get; set; }
+        public ObservableCollection<UserViewModel> TeamWork { get; set; }
+
+
         private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
         private CancellationTokenSource tokenSource;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -64,6 +67,8 @@ namespace OfficeTicTacToe.Views
             this.InitializeComponent();
             Users = new ObservableCollection<UserViewModel>();
             Games = new ObservableCollection<GameViewModel>();
+            TeamWork = new ObservableCollection<UserViewModel>();
+
             AutoSuggestBox.Text = string.Empty;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
@@ -99,6 +104,19 @@ namespace OfficeTicTacToe.Views
                 {
                     Games.Add(game);
                 }
+            }
+
+            this.TeamWork.Clear();
+
+            var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
+            var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
+            var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
+
+            List<UserViewModel> users = new List<UserViewModel>();
+            foreach (var u in teamWork)
+            {
+                UserViewModel uvm = UserViewModel.MergeFromSharepoint(UserViewModel.GetUser(u.UserName), u);
+                this.TeamWork.Add(uvm);
             }
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
