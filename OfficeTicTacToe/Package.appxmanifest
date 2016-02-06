@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="54905SbastienPertus.OfficeTicTacToe" Publisher="CN=29CCBAF9-4A86-4915-BBBC-BAE873854540" Version="1.1.5.0" />
+  <Identity Name="35191Jean-SbastienDupuy.OfficeTicTacToe" Publisher="CN=3E5E1679-670B-4833-B024-745A6E0A0081" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="74dc1ac7-1eba-43fe-9fe8-95cd805dff2b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>OfficeTicTacToe</DisplayName>
-    <PublisherDisplayName>Sébastien Pertus</PublisherDisplayName>
+    <PublisherDisplayName>Jean-Sébastien Dupuy</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

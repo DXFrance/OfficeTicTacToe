@@ -1,8 +1,12 @@
-﻿using OfficeTicTacToe.Common;
+﻿using Microsoft.WindowsAzure.Messaging;
+using OfficeTicTacToe.Common;
+using OfficeTicTacToe.Common.Graph;
+using OfficeTicTacToe.Common.Models;
 using OfficeTicTacToe.Graph;
 using OfficeTicTacToe.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -10,6 +14,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.PushNotifications;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,6 +41,19 @@ namespace OfficeTicTacToe
             this.Suspending += OnSuspending;
         }
 
+        private async void InitNotificationsAsync()
+        {
+            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+
+            var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
+            var result = await hub.RegisterNativeAsync(channel.Uri);
+
+            // Displays the registration ID so you know it was successful
+            if (result.RegistrationId != null)
+            {
+                Debug.WriteLine("Channel Registered: " + result.RegistrationId);
+            }
+        }
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -43,6 +61,7 @@ namespace OfficeTicTacToe
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            InitNotificationsAsync();
 
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)

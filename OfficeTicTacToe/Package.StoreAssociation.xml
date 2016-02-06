@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
-  <Publisher>CN=29CCBAF9-4A86-4915-BBBC-BAE873854540</Publisher>
-  <PublisherDisplayName>Sébastien Pertus</PublisherDisplayName>
+  <Publisher>CN=3E5E1679-670B-4833-B024-745A6E0A0081</Publisher>
+  <PublisherDisplayName>Jean-Sébastien Dupuy</PublisherDisplayName>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
     <Language Code="af" InMinimumRequirementSet="true" />
@@ -358,20 +358,22 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>44905SbastienPertus.OfficeTicTacToe</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.OfficeTicTacToe</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>OfficeTicTacToe</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>44905SbastienPertus.FabrikamFiber</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.FabrikamFiberCS</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.fefefefe</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.InAppMim</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.LesEchosMim</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.Mim</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.MimInApp</MainPackageIdentityName>
-    <MainPackageIdentityName>44905SbastienPertus.WebViewMim</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.2045981A4A3FF</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.Chatoy</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.EasyPokerTimer</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.FacebookDemo</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.Labilletterie</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.LeNombreMystre</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.PurchaseDemo</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.RimshotforWindowsStore</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.stephanietest</MainPackageIdentityName>
+    <MainPackageIdentityName>35191Jean-SbastienDupuy.TechdaysCamp</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH5PM8V" />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH5Q64L" />
 </StoreAssociation>
