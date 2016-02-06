@@ -284,7 +284,6 @@ namespace OfficeTicTacToe.Models
         private UserViewModel()
         {
             uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-
         }
 
         internal static async Task UpdateUsersFromSharepointAsync(List<string> userMails, CancellationToken token)
@@ -499,7 +498,6 @@ namespace OfficeTicTacToe.Models
 
         }
       
-
         internal static UserViewModel MergeFromSharepoint(UserViewModel userViewModel, SPItemUser u)
         {
             userViewModel.DocId = u.DocId;
@@ -558,7 +556,6 @@ namespace OfficeTicTacToe.Models
                 }));
             }
         }
-
 
         private void HandleContactClicked(UserViewModel uvm)
         {

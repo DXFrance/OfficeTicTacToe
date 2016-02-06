@@ -80,19 +80,6 @@ namespace OfficeTicTacToe
             {
                 current = this;
 
-                var game = await GameHelper.Current.CreateGame(new Common.Models.Game
-                {
-                    UserIdCreator = "spertus@microsoft.com",
-                    UserIdOpponent = "adanvy@microsoft.com"
-
-                });
-
-                game.Winner = "spertus@microsoft.com";
-
-                await GameHelper.Current.UpdateGame(game);
-
-                var lst = await GameHelper.Current.GetGamesByUserId(game.Winner);
-
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
                     this.Navigate(typeof(GamesView));
@@ -144,7 +131,7 @@ namespace OfficeTicTacToe
             sb.Begin();
 
         }
-      
+
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
