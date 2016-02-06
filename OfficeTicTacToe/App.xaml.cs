@@ -89,8 +89,7 @@ namespace OfficeTicTacToe
                 rootFrame = new Frame();
 
                 NavigationHelper.Current.RegisterRootFrame(rootFrame);
-                //NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
-                NavigationHelper.Current.RegisterEntryPage(typeof(AppShell));
+                NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

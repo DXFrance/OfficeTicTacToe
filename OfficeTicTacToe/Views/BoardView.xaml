@@ -38,9 +38,9 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=0}"/>
-                <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=1}"/>
-                <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=2}"/>
+                <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Content="{Binding Cell0, Mode=OneTime}"/>
+                <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Content="{Binding Cell1, Mode=OneTime}"/>
+                <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Content="{Binding Cell2, Mode=OneTime}"/>
                 <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=3}"/>
                 <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=4}"/>
                 <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=5}"/>

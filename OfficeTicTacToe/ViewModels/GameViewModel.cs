@@ -91,6 +91,27 @@ namespace OfficeTicTacToe.ViewModels
                 RaisePropertyChanged();
             }
         }
+        public string Cell0
+        {
+            get
+            {
+                return Board.Length > 0 ? Board[0].ToString() : "?";
+            }
+        }
+        public string Cell1
+        {
+            get
+            {
+                return Board.Length > 0 ? Board[0].ToString() : "?";
+            }
+        }
+        public string Cell2
+        {
+            get
+            {
+                return Board.Length > 0 ? Board[0].ToString() : "?";
+            }
+        }
         public Nullable<int> GameResult
         {
             get
