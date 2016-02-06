@@ -85,6 +85,9 @@ namespace OfficeTicTacToe
 
             //GameViewModel game = new GameViewModel();
             //game.Board = "    X    ";
+            //game.CreatedDate = DateTime.UtcNow;
+            //game.UserIdCreator = "spertus@microsoft.com";
+            //game.UserIdCurrent = game.UserIdCreator;
 
             //while (!game.IsTerminated)
             //    game = await GameHelper.Current.GetJarvisMoveAsync("spertus@microsoft.com", game);
