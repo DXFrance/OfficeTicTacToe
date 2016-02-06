@@ -86,6 +86,7 @@ namespace OfficeTicTacToe.Views
 
         private async void Channel_PushNotificationReceived(Windows.Networking.PushNotifications.PushNotificationChannel sender, Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs args)
         {
+            Debug.WriteLine("Notification received");
             await Task.Factory.StartNew(Refresh, CancellationToken.None, TaskCreationOptions.None, uiScheduler);
         }
 
@@ -151,11 +152,11 @@ namespace OfficeTicTacToe.Views
         public async Task Refresh(CancellationToken token, bool forceRefresh = false)
         {
 
+            if (Game != null)
+                await Game.Refresh();
 
-
-
-            StackPanelLoader.Visibility = Visibility.Visible;
-            StackPanelLoader.Opacity = 1.0d;
+            //StackPanelLoader.Visibility = Visibility.Visible;
+            //StackPanelLoader.Opacity = 1.0d;
 
             //ProgressRingLoader.Visibility = Visibility.Visible;
             //ProgressRingLoader.IsActive = true;

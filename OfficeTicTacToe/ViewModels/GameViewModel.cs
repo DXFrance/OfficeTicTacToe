@@ -327,13 +327,10 @@ namespace OfficeTicTacToe.ViewModels
                 }));
             }
         }
-        public async Task Update()
+        private void Assign(GameViewModel game)
         {
-            Debug.WriteLine("Before=" + UserIdCurrent);
-            var game = await GameHelper.Current.UpdateGameAsync(this);
             if (game == null)
                 return;
-            Debug.WriteLine("After=" + game.UserIdCurrent);
             _InitialBoard = null;
             UserIdCreator = game.UserIdCreator;
             UserIdOpponent = game.UserIdOpponent;
@@ -343,6 +340,16 @@ namespace OfficeTicTacToe.ViewModels
             IsTerminated = game.IsTerminated;
             Board = EMPTY_GAME;
             Board = game.Board;
+        }
+        public async Task Update()
+        {
+            Debug.WriteLine("Before=" + UserIdCurrent);
+            Assign(await GameHelper.Current.UpdateGameAsync(this));
+            Debug.WriteLine("After=" + UserIdCurrent);
+        }
+        public async Task Refresh()
+        {
+            Assign(await GameHelper.Current.GetGameAsync(Id));
         }
     }
 }
