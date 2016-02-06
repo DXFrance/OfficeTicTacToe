@@ -78,6 +78,7 @@ namespace OfficeTicTacToe
 
 
             // Register singleton
+            this.Loaded += (s, e) =>
             this.Loaded += async (s, e) =>
             {
                 current = this;
@@ -146,6 +147,7 @@ namespace OfficeTicTacToe
             sb.Begin();
 
         }
+      
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

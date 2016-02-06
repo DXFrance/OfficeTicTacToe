@@ -1,5 +1,5 @@
 ﻿<common:BasePage
-    x:Class="OfficeTicTacToe.Views.Settings"
+    x:Class="OfficeTicTacToe.Views.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:model="using:OfficeTicTacToe.Models"
