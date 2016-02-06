@@ -44,10 +44,17 @@ namespace OfficeTicTacToe
             var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
             var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
-            var result = await hub.RegisterNativeAsync(channel.Uri);
-
+            Registration result = null;
+            try
+            {
+                result = await hub.RegisterNativeAsync(channel.Uri);
+            }
+            catch (RegistrationException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             // Displays the registration ID so you know it was successful
-            if (result.RegistrationId != null)
+            if (result?.RegistrationId != null)
             {
                 Debug.WriteLine("Channel Registered: " + result.RegistrationId);
             }
@@ -82,7 +89,8 @@ namespace OfficeTicTacToe
                 rootFrame = new Frame();
 
                 NavigationHelper.Current.RegisterRootFrame(rootFrame);
-                NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
+                //NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
+                NavigationHelper.Current.RegisterEntryPage(typeof(AppShell));
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -104,8 +112,7 @@ namespace OfficeTicTacToe
                 if (!String.IsNullOrEmpty(token))
                     rootFrame.Navigate(typeof(AppShell), e.Arguments);
                 else
-                    rootFrame.Navigate(typeof(LoginPage), e.Arguments);
-
+                    rootFrame.Navigate(NavigationHelper.Current.EntryPage, e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();

@@ -83,7 +83,7 @@ namespace OfficeTicTacToe.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Game = e.Parameter as GameViewModel;
+            Game = e?.Parameter as GameViewModel ?? new GameViewModel();
             using (this.TokenSource = new CancellationTokenSource())
             {
                 try

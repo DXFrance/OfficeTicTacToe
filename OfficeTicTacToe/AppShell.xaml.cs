@@ -42,7 +42,7 @@ namespace OfficeTicTacToe
     public sealed partial class AppShell : Windows.UI.Xaml.Controls.Page
     {
         // Store account-specific settings so that the app can remember that a user has already signed in.
-        public static ApplicationDataContainer settings = ApplicationData.Current.RoamingSettings;
+        //public static ApplicationDataContainer settings = ApplicationData.Current.RoamingSettings;
 
         private static AppShell current;
         public static AppShell Current
@@ -85,12 +85,16 @@ namespace OfficeTicTacToe
                     this.Navigate(typeof(GamesView));
             };
 
-            var me = UserViewModel.GetUser(settings.Values["userEmail"].ToString());
+            var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
 
             this.navLinks = new ObservableCollection<NavLink>()
             {
                 new NavLink() { Label = "Games", Symbol = Symbol.Play,
                     DestPage = typeof(GamesView) },
+#if DEBUG
+                new NavLink() { Label = "Board", Symbol = Symbol.Play,
+                    DestPage = typeof(BoardView) },
+#endif
                 new NavLink() { Label = "Leader board", Symbol = Symbol.Find,
                      DestPage = typeof(LeadersView)},
                 new NavLink() { Label = "Settings", Symbol = Symbol.Setting,

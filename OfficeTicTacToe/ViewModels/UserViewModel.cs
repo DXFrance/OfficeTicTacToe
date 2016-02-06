@@ -471,7 +471,7 @@ namespace OfficeTicTacToe.ViewModels
         {
             get
             {
-                return ApplicationData.Current.RoamingSettings.Values["userEmail"].ToString();
+                return ApplicationData.Current.RoamingSettings.Values["userEmail"] as string ?? "";
             }
         }
         internal static UserViewModel GetUser(string userPrincipalName)

@@ -91,11 +91,14 @@ namespace OfficeTicTacToe.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Games.Clear();
             var games = await GameHelper.Current.GetGamesByUserId(UserViewModel.CurrentUser);
-            foreach (var game in games)
+            if (games != null)
             {
-                Games.Add(game);
+                Games.Clear();
+                foreach (var game in games)
+                {
+                    Games.Add(game);
+                }
             }
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
