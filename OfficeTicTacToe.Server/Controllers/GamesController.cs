@@ -49,10 +49,11 @@ namespace OfficeTicTacToe.Server.Controllers
                 return BadRequest(ModelState);
 
             TicTacToeEngine engine = new TicTacToeEngine();
+           // game.Board = "  OX X   ";
             engine.Initialise(game);
 
             var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
-            
+
             var isEnded = engine.MakeBestMove(isMachineTurn);
             game.UserIdCurrent = isMachineTurn ? jarvisName : userId;
             game.IsTerminated = isEnded;
