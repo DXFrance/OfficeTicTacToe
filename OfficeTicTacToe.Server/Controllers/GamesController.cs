@@ -57,7 +57,7 @@ namespace OfficeTicTacToe.Server.Controllers
             db.Moves.Add(move);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = move.Id }, move);
+            return Ok(move);
         }
 
 

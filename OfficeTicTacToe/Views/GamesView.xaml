@@ -17,18 +17,30 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <AutoSuggestBox Margin="10" Grid.Row="0" PlaceholderText="Type name..."
+        <Pivot>
+            <PivotItem Header="New">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ListView />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="New">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <AutoSuggestBox Margin="10" Grid.Row="0" PlaceholderText="Type name..."
                         QueryIcon="Find" Name="AutoSuggestBox"
                         QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
 
-        <Border Name="BorderListView" Grid.Row="2" BorderThickness="0" >
-            <ListView    
+                    <Border Name="BorderListView" Grid.Row="2" BorderThickness="0" >
+                        <ListView    
                   Name="ListViewResearch"
                   ItemsSource="{x:Bind Users, Mode=OneWay}" 
                   Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
@@ -45,11 +57,13 @@
                   ItemTemplate="{StaticResource UserViewModelTemplate}"
                   HorizontalContentAlignment="Stretch" />
 
-        </Border>
+                    </Border>
 
-        <ctrl:PivotItemWaiter Grid.Row="2" x:Name="PivotItemWaiterLastFiles" 
+                    <ctrl:PivotItemWaiter Grid.Row="2" x:Name="PivotItemWaiterLastFiles" 
                             Text="search in progress ..."
                             Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource BooleanVisibilityConverter}}"/>
-
+                </Grid>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

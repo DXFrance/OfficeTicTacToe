@@ -1,0 +1,11 @@
+{
+    "siteName": {
+        "value": "Dev-OfficeTicTacToe"
+    },
+    "hostingPlanName": {
+        "value": "BasicOfficeTicTacToePlan"        
+    },
+    "siteLocation": {
+        "value": "West US"      
+    }
+}
