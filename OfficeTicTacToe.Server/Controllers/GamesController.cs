@@ -49,7 +49,7 @@ namespace OfficeTicTacToe.Server.Controllers
                 return BadRequest(ModelState);
 
             TicTacToeEngine engine = new TicTacToeEngine();
-           // game.Board = "  OX X   ";
+            // game.Board = "  OX X   ";
             engine.Initialise(game);
 
             var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
@@ -65,6 +65,18 @@ namespace OfficeTicTacToe.Server.Controllers
                     game.UserIdWinner = jarvisName;
                 else
                     game.UserIdWinner = userId;
+            }
+
+            db.Entry(game).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch
+            {
+
             }
             return Ok(game);
 
@@ -138,7 +150,7 @@ namespace OfficeTicTacToe.Server.Controllers
                 headers.Add("Content-Type", "application/octet-stream");
                 headers.Add("X-WNS-Type", "wns/raw");
 
-                var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator ;
+                var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator;
 
                 //Notification notification = new WindowsNotification(payload, headers, tag);
                 //await hub.SendNotificationAsync(notification);
@@ -166,6 +178,22 @@ namespace OfficeTicTacToe.Server.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            TicTacToeEngine engine = new TicTacToeEngine();
+            engine.Initialise(game);
+
+            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+            game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+            if (game.IsTerminated)
+            {
+                var result = engine.GetResultState(game.Board);
+                if (result == TicTacToeEngine.TicTacToeResult.MachineWin)
+                    game.UserIdWinner = game.UserIdOpponent;
+                else
+                    game.UserIdWinner = game.UserIdCreator;
+            }
+
+
 
             db.Games.Add(game);
             db.SaveChanges();
