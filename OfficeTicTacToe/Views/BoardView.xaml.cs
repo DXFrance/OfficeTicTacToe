@@ -84,6 +84,7 @@ namespace OfficeTicTacToe.Views
         {
             base.OnNavigatedTo(e);
             Game = e?.Parameter as GameViewModel ?? new GameViewModel();
+            DataContext = Game;
             using (this.TokenSource = new CancellationTokenSource())
             {
                 try
@@ -189,13 +190,12 @@ namespace OfficeTicTacToe.Views
             var cell = Convert.ToInt16(button.Tag);
             if ((cell < 0) || (cell > Game.Board.Length))
                 return;
-            var board = Game.Board.ToArray();
-            board[cell] = 'X';
-            Game.Board = new string(board);
-        }
-        private async void PutButton_Click(object sender, RoutedEventArgs e)
-        {
-            await GameHelper.Current.UpdateGame(Game);
+            var board = Game.InitialBoard.ToArray();
+            if (board[cell] == ' ')
+            {
+                board[cell] = Game.CurrentPawn;
+                Game.Board = new string(board);
+            }
         }
     }
 }
