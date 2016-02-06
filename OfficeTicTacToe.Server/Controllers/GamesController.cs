@@ -51,10 +51,10 @@ namespace OfficeTicTacToe.Server.Controllers
             TicTacToeEngine engine = new TicTacToeEngine();
             engine.Initialise(game);
 
-            var isMachineTurn = game.UserIdCurrent.ToLower().Trim() == jarvisName.ToLower().Trim();
-
+            var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
+            
             var isEnded = engine.MakeBestMove(isMachineTurn);
-            game.UserIdCurrent = isMachineTurn ? userId : jarvisName;
+            game.UserIdCurrent = isMachineTurn ? jarvisName : userId;
             game.IsTerminated = isEnded;
             game.Board = engine.Board;
             if (game.IsTerminated)
