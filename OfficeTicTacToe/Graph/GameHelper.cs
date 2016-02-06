@@ -30,16 +30,16 @@ namespace OfficeTicTacToe.Common.Graph
             }
         }
 
-        public async Task<Game> CreateGame(Game move)
+        public async Task<Game> CreateGame(Game game)
         {
             try
             {
-                if (!move.CreatedDate.HasValue)
-                    move.CreatedDate = DateTime.UtcNow;
+                if (!game.CreatedDate.HasValue)
+                    game.CreatedDate = DateTime.UtcNow;
 
                 var uri = new Uri(ServerUri + "/api/Games");
 
-                StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
+                StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
 
                 return await this.PostAsync<Game>(uri, scontent);
             }
@@ -68,6 +68,26 @@ namespace OfficeTicTacToe.Common.Graph
 
             }
         }
+
+        public async Task<Move> MakeMove(string userId, Game game)
+        {
+            try
+            {
+                var uri = new Uri(ServerUri + "/api/Games/Move/" + userId + "/");
+
+                StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
+
+                var move = await this.PostAsync<Move>(uri, scontent);
+
+                return move;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         public async Task<Game> GetGame(int id)
         {
             try
