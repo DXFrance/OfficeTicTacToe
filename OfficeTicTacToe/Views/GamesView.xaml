@@ -17,15 +17,17 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot>
-            <PivotItem Header="New">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <ListView
+        <StackPanel>
+            <TextBlock Text="TitleBlock" Style="{ThemeResource CaptionTextBlockStyle}" />
+            <Pivot>
+                <PivotItem Header="Existing">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ListView
                   Name="GamesListView"
                   ItemsSource="{x:Bind Games, Mode=OneWay}" 
                   Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
@@ -38,21 +40,20 @@
                   IsRightTapEnabled="False"
                   IsDoubleTapEnabled="False"
                         />
-                </Grid>
-            </PivotItem>
-            <PivotItem Header="New">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <AutoSuggestBox Margin="10" Grid.Row="0" PlaceholderText="Type name..."
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="New">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <AutoSuggestBox Margin="10" Grid.Row="0" PlaceholderText="Type name..."
                         QueryIcon="Find" Name="AutoSuggestBox"
                         QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
-
-                    <Border Name="BorderListView" Grid.Row="2" BorderThickness="0" >
-                        <ListView    
+                        <Border Name="BorderListView" Grid.Row="2" BorderThickness="0" >
+                            <ListView    
                   Name="ListViewResearch"
                   ItemsSource="{x:Bind Users, Mode=OneWay}" 
                   Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
@@ -64,18 +65,16 @@
                   IsItemClickEnabled="True"   
                   IsRightTapEnabled="False"
                   IsDoubleTapEnabled="False"
-                  
                   IsTapEnabled="False"
                   ItemTemplate="{StaticResource UserViewModelTemplate}"
                   HorizontalContentAlignment="Stretch" />
-
-                    </Border>
-
-                    <ctrl:PivotItemWaiter Grid.Row="2" x:Name="PivotItemWaiterLastFiles" 
+                        </Border>
+                        <ctrl:PivotItemWaiter Grid.Row="2" x:Name="PivotItemWaiterLastFiles" 
                             Text="search in progress ..."
                             Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource BooleanVisibilityConverter}}"/>
-                </Grid>
-            </PivotItem>
-        </Pivot>
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+        </StackPanel>
     </Grid>
 </Page>

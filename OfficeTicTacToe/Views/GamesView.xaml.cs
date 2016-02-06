@@ -33,44 +33,12 @@ namespace OfficeTicTacToe.Views
     /// </summary>
     public sealed partial class GamesView : INotifyPropertyChanged
     {
+        private static readonly object lockObject = new object();
         public ObservableCollection<UserViewModel> Users { get; set; }
-<<<<<<< .mine
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-
+        public ObservableCollection<Game> Games { get; set; }
         private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
         private CancellationTokenSource tokenSource;
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void RaisePropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -78,7 +46,6 @@ namespace OfficeTicTacToe.Views
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
         public bool IsPageEnabled
         {
             get
@@ -93,47 +60,21 @@ namespace OfficeTicTacToe.Views
 
             }
         }
-
->>>>>>> .theirs
         public GamesView()
         {
             this.InitializeComponent();
-            Loaded += GamesView_Loaded;
-            this.Users = new ObservableCollection<UserViewModel>();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            Users = new ObservableCollection<UserViewModel>();
+            Games = new ObservableCollection<Game>();
             AutoSuggestBox.Text = string.Empty;
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
         public string Title
-<<<<<<< .mine
-        private async void GamesView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Games.Clear();
-            var games = await GameHelper.Current.GetGamesByUserId(UserViewModel.CurrentUser);
-            foreach (var game in games)
-            {
-                Games.Add(game);
-            }
-        }
-        public override string Title
-=======
-        public string Title
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
         {
             get
             {
                 return "search people";
             }
         }
-
         public Microsoft.Graph.GraphService Graph
         {
             get
@@ -141,26 +82,27 @@ namespace OfficeTicTacToe.Views
                 return this.graph;
             }
         }
-
         public async Task<List<Microsoft.Graph.IUser>> Search(string val, CancellationToken token)
         {
             token.ThrowIfCancellationRequested();
-
             var lstUsers = new List<UserViewModel>();
-
             var allusers = await this.Graph.Users.GetUsersLike(val);
-
             return allusers;
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            Games.Clear();
+            var games = await GameHelper.Current.GetGamesByUserId(UserViewModel.CurrentUser);
+            foreach (var game in games)
+            {
+                Games.Add(game);
+            }
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
         }
-
         public void CancelTokenSource()
         {
             if (tokenSource != null)
@@ -180,7 +122,6 @@ namespace OfficeTicTacToe.Views
                 }
             }
         }
-
         public CancellationTokenSource TokenSource
         {
             get
@@ -192,7 +133,6 @@ namespace OfficeTicTacToe.Views
                 this.tokenSource = value;
             }
         }
-
         public bool IsRefreshButtonEnabled
         {
             get
@@ -204,9 +144,7 @@ namespace OfficeTicTacToe.Views
                 AppShell.Current.RefreshButton.IsEnabled = value;
             }
         }
-
         private bool isLoading = false;
-
         /// <summary>
         /// you can use IsLoading for any loading purpose
         /// </summary>
@@ -223,7 +161,6 @@ namespace OfficeTicTacToe.Views
                 RaisePropertyChanged(nameof(IsLoading));
             }
         }
-
         private async void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!string.IsNullOrEmpty(args.QueryText))
