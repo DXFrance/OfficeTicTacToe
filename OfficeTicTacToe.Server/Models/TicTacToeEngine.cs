@@ -32,9 +32,12 @@ namespace OfficeTicTacToe.Server.Models
         {
             this.board = game.Board;
 
-            foreach (var c in board)
+            for(var i=0; i < board.Length -1; i++)
+            {
+                var c = board[i];
                 if (c == machineChar || c == userChar)
-                    MakeMove(board.IndexOf(c), (c == machineChar));
+                    MakeMove(i, (c == machineChar));
+            }
 
         }
         public TicTacToeEngine()
