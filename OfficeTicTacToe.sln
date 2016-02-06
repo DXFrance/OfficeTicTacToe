@@ -26,6 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Ops\Templates\qa-azuredeploy-parameters.json = Ops\Templates\qa-azuredeploy-parameters.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{F25FBC18-83F9-49BC-9BDF-72F26687B535}"
+	ProjectSection(SolutionItems) = preProject
+		Ops\DB\CreateDatabase.sql = Ops\DB\CreateDatabase.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,5 +88,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{58EA3145-AC0B-4EB9-B59A-FCD7E9091307} = {F3C92A17-01A0-49FB-AFDE-3ABE14112F07}
 		{ACC2C32D-0B8D-471E-BA19-862439C35379} = {F3C92A17-01A0-49FB-AFDE-3ABE14112F07}
+		{F25FBC18-83F9-49BC-9BDF-72F26687B535} = {F3C92A17-01A0-49FB-AFDE-3ABE14112F07}
 	EndGlobalSection
 EndGlobal
