@@ -106,10 +106,21 @@ namespace OfficeTicTacToe.Views
                 }
             }
 
+            List<string> users = new List<string>();
+            foreach(var g in Games)
+            {
+                users.Add(g.UserIdCreator);
+                users.Add(g.UserIdOpponent);
+            }
+
             this.TeamWork.Clear();
 
             var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
             var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
+
+            if (me2.Count <= 0)
+                return;
+
             var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
 
             List<UserViewModel> users = new List<UserViewModel>();
