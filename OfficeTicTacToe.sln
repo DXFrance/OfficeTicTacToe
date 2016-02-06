@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeTicTacToe", "OfficeTicTacToe\OfficeTicTacToe.csproj", "{D571A52A-8E2E-4990-94FB-A49F4438E11A}"
 EndProject
@@ -12,8 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{58EA3145-AC0B-4EB9-B59A-FCD7E9091307}"
 	ProjectSection(SolutionItems) = preProject
 		Ops\Scripts\Dev-Provision.ps1 = Ops\Scripts\Dev-Provision.ps1
+		Ops\Scripts\Dev-Unprovision.ps1 = Ops\Scripts\Dev-Unprovision.ps1
 		Ops\Scripts\Prod-Provision.ps1 = Ops\Scripts\Prod-Provision.ps1
 		Ops\Scripts\QA-Provision.ps1 = Ops\Scripts\QA-Provision.ps1
+		Ops\Scripts\RM-Dev-Unprovision.ps1 = Ops\Scripts\RM-Dev-Unprovision.ps1
 		Ops\Scripts\ServicePrincipalAssignment.ps1 = Ops\Scripts\ServicePrincipalAssignment.ps1
 	EndProjectSection
 EndProject
