@@ -34,6 +34,7 @@ namespace OfficeTicTacToe.Server.Controllers
             var games = from g in db.Games
                         where ((g.UserIdCreator == userId) ||
                                (g.UserIdOpponent == userId))
+                               && g.IsTerminated == false
                         select g;
 
             return games;

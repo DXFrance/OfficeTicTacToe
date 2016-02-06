@@ -107,7 +107,7 @@ namespace OfficeTicTacToe.Views
             }
 
             List<string> usersMail = new List<string>();
-            foreach(var g in Games)
+            foreach (var g in Games)
             {
                 usersMail.Add(g.UserIdCreator);
                 usersMail.Add(g.UserIdOpponent);
@@ -117,21 +117,23 @@ namespace OfficeTicTacToe.Views
 
             await UserViewModel.UpdateUsersFromSharepointAsync(usersMailTab, CancellationToken.None);
 
-            this.TeamWork.Clear();
-
-            var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
-            var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
-
-            if (me2.Count <= 0)
-                return;
-
-            var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
-
-            List<UserViewModel> users = new List<UserViewModel>();
-            foreach (var u in teamWork)
+            if (this.TeamWork.Count == 0)
             {
-                UserViewModel uvm = UserViewModel.MergeFromSharepoint(UserViewModel.GetUser(u.UserName), u);
-                this.TeamWork.Add(uvm);
+
+                var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
+                var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
+
+                if (me2.Count <= 0)
+                    return;
+
+                var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
+
+                List<UserViewModel> users = new List<UserViewModel>();
+                foreach (var u in teamWork)
+                {
+                    UserViewModel uvm = UserViewModel.MergeFromSharepoint(UserViewModel.GetUser(u.UserName), u);
+                    this.TeamWork.Add(uvm);
+                }
             }
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -274,7 +276,7 @@ namespace OfficeTicTacToe.Views
 
         }
 
-      
+
 
         private async void WorkTeamListView_ItemClick(object sender, ItemClickEventArgs e)
         {

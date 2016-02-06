@@ -192,7 +192,7 @@ namespace OfficeTicTacToe.Views
 
             // sb.Begin();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
             if (button == null)
@@ -206,6 +206,8 @@ namespace OfficeTicTacToe.Views
                 board[cell] = Game.CurrentPawn;
                 Game.Board = new string(board);
             }
+
+            await Game.Update();
         }
     }
 }

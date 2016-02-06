@@ -189,6 +189,7 @@
     <Content Include="Assets\LogoColor.PNG" />
     <Content Include="Assets\LogoMid.png" />
     <Content Include="Assets\LogotypeMid.png" />
+    <Content Include="Assets\screen1.PNG" />
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
     <Content Include="Assets\Square71x71Logo.scale-200.png" />
     <Content Include="Assets\UnknownPerson.jpg" />

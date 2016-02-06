@@ -90,8 +90,6 @@
                                        ToolTipService.ToolTip="{Binding UserCreatorViewModel.Name}"
                                        Stretch="UniformToFill" />
                                 <Image Grid.Column="1"   Margin="5"  
-                                      
-                                       
                                        Source="{Binding UserOpponentViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
                                        Width="50" Height="50" 
                                        Stretch="UniformToFill" />
@@ -136,7 +134,7 @@
                 </Grid>
                 <!--<TextBlock Text="Board" />
                 <TextBlock Text="{Binding Board}" />-->
-                <Button Content="Update" Command="{Binding UpdateCommand}" />
+                <!--<Button Content="Update" Command="{Binding UpdateCommand}" />-->
             </StackPanel>
             <!--<Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
