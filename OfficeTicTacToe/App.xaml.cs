@@ -46,6 +46,7 @@ namespace OfficeTicTacToe
 
             var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
             Registration result = null;
+
             try
             {
                 result = await hub.RegisterNativeAsync(channel.Uri);
@@ -54,6 +55,7 @@ namespace OfficeTicTacToe
             {
                 Debug.WriteLine(ex.Message);
             }
+
             // Displays the registration ID so you know it was successful
             if (result?.RegistrationId != null)
             {
@@ -95,8 +97,7 @@ namespace OfficeTicTacToe
                 rootFrame = new Frame();
 
                 NavigationHelper.Current.RegisterRootFrame(rootFrame);
-                //NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
-                NavigationHelper.Current.RegisterEntryPage(typeof(AppShell));
+                NavigationHelper.Current.RegisterEntryPage(typeof(LoginPage));
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

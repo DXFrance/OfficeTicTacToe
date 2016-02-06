@@ -24,9 +24,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <ProgressRing Grid.Row="0" HorizontalAlignment="Center" Width="50" Height="50" 
+            <!--<ProgressRing Grid.Row="0" HorizontalAlignment="Center" Width="50" Height="50" 
                           Margin="10" IsActive="False" Name="ProgressRingLoader"
-                          Foreground="#FF0070C0" />
+                          Foreground="#FF0070C0" />-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -38,19 +38,20 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=0}"/>
-                <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=1}"/>
-                <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=2}"/>
-                <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=3}"/>
-                <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=4}"/>
-                <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=5}"/>
-                <Button Tag="6" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=6}"/>
-                <Button Tag="7" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=7}"/>
-                <Button Tag="8" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Board, Mode=OneTime, Converter={StaticResource BoardConverter}, ConverterParameter=8}"/>
+                <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell0, Mode=OneWay}"/>
+                <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell1, Mode=OneWay}"/>
+                <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell2, Mode=OneWay}"/>
+                <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell3, Mode=OneWay}"/>
+                <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell4, Mode=OneWay}"/>
+                <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell5, Mode=OneWay}"/>
+                <Button Tag="6" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell6, Mode=OneWay}"/>
+                <Button Tag="7" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell7, Mode=OneWay}"/>
+                <Button Tag="8" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell8, Mode=OneWay}"/>
+                <TextBlock Text="{Binding Board, Mode=OneWay}" />
             </Grid>
-            <Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
+            <!--<Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Margin="10" MaxWidth="200" />
+                   Margin="10" MaxWidth="200" />-->
         </Grid>
     </Grid>
 </Page>

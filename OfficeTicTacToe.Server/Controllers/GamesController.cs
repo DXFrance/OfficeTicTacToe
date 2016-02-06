@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OfficeTicTacToe.Server.Models;
+using Microsoft.Azure.NotificationHubs;
+using System.Threading.Tasks;
 
 namespace OfficeTicTacToe.Server.Controllers
 {
@@ -82,7 +84,7 @@ namespace OfficeTicTacToe.Server.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGame(int id, Game game)
+        public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
             {
@@ -99,6 +101,12 @@ namespace OfficeTicTacToe.Server.Controllers
             try
             {
                 db.SaveChanges();
+
+                NotificationHubClient hub = NotificationHubClient
+                                .CreateClientFromConnectionString("Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=+Au+w96izwXkztajDDeRB4r+6hsCsN0Gt1lN0Yg7lxM=", "OfficeTicTacToeNotificationHub");
+                var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
+
+                await hub.SendWindowsNativeNotificationAsync(toast);
             }
             catch (DbUpdateConcurrencyException)
             {

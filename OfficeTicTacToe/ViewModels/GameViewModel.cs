@@ -86,10 +86,91 @@ namespace OfficeTicTacToe.ViewModels
                 if (value == _Board)
                     return;
                 if ((value == null) || (value.Length < 9))
+                {
                     _Board = "         ";
-                _Board = value;
+                }
+                else
+                {
+                    _Board = value;
+                }
                 RaisePropertyChanged();
+                RaisePropertyChanged(() => Cell0);
+                RaisePropertyChanged(() => Cell1);
+                RaisePropertyChanged(() => Cell2);
+                RaisePropertyChanged(() => Cell3);
+                RaisePropertyChanged(() => Cell4);
+                RaisePropertyChanged(() => Cell5);
+                RaisePropertyChanged(() => Cell6);
+                RaisePropertyChanged(() => Cell7);
+                RaisePropertyChanged(() => Cell8);
             }
+        }
+        public string Cell0
+        {
+            get
+            {
+                return CellValue(0);
+            }
+        }
+        public string Cell1
+        {
+            get
+            {
+                return CellValue(1);
+            }
+        }
+        public string Cell2
+        {
+            get
+            {
+                return CellValue(2);
+            }
+        }
+        public string Cell3
+        {
+            get
+            {
+                return CellValue(3);
+            }
+        }
+        public string Cell4
+        {
+            get
+            {
+                return CellValue(4);
+            }
+        }
+        public string Cell5
+        {
+            get
+            {
+                return CellValue(5);
+            }
+        }
+        public string Cell6
+        {
+            get
+            {
+                return CellValue(6);
+            }
+        }
+        public string Cell7
+        {
+            get
+            {
+                return CellValue(7);
+            }
+        }
+        public string Cell8
+        {
+            get
+            {
+                return CellValue(8);
+            }
+        }
+        private string CellValue(int index)
+        {
+            return Board.Length > index ? Board[index].ToString() : "?";
         }
         public Nullable<int> GameResult
         {
