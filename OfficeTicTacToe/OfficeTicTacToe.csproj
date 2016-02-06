@@ -95,6 +95,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Compile Include="Common\BasePage.cs" />
     <Compile Include="Common\DebugListView.cs" />
+    <Compile Include="Common\ImageHelper.cs" />
     <Compile Include="Common\IRefreshPage.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -113,7 +114,17 @@
     <Compile Include="Converters\DateStringConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\PivotItemConverter.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\GraphExtensions.cs" />
+    <Compile Include="Graph\AuthenticationHelper.cs" />
+    <Compile Include="Graph\GameHelper.cs" />
+    <Compile Include="Graph\Microsoft.Graph.cs" />
+    <Compile Include="Graph\Request.cs" />
+    <Compile Include="Graph\SearchItem.cs" />
+    <Compile Include="Graph\SharePointSearchHelper.cs" />
     <Compile Include="Models\CacheManager.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Move.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Ressources\DataTemplates.xaml.cs">
       <DependentUpon>DataTemplates.xaml</DependentUpon>
@@ -121,14 +132,17 @@
     <Compile Include="Views\DisconnectPage.xaml.cs">
       <DependentUpon>DisconnectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NextMeetings.xaml.cs">
-      <DependentUpon>NextMeetings.xaml</DependentUpon>
+    <Compile Include="Views\BoardView.xaml.cs">
+      <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchPeople.xaml.cs">
-      <DependentUpon>SearchPeople.xaml</DependentUpon>
+    <Compile Include="Views\GamesView.xaml.cs">
+      <DependentUpon>GamesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="Views\LeadersView.xaml.cs">
+      <DependentUpon>LeadersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <None Include="OfficeTicTacToe_TemporaryKey.pfx" />
     <None Include="project.json" />
@@ -223,27 +237,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NextMeetings.xaml">
+    <Page Include="Views\BoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchPeople.xaml">
+    <Page Include="Views\GamesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings.xaml">
+    <Page Include="Views\LeadersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OfficeTicTacToe.Common\OfficeTicTacToe.Common.csproj">
-      <Project>{6b062f86-bf0f-470a-b4c2-c19a97b7684e}</Project>
-      <Name>NextMeeting.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

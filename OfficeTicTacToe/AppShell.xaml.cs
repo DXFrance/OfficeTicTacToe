@@ -97,19 +97,19 @@ namespace OfficeTicTacToe
 
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
-                    this.Navigate(typeof(OfficeTicTacToes));
+                    this.Navigate(typeof(GamesView));
             };
 
             var me = UserViewModel.GetUser(settings.Values["userEmail"].ToString());
 
             this.navLinks = new ObservableCollection<NavLink>()
             {
-                new NavLink() { Label = "TicTacToe", Symbol = Symbol.Play,
-                    DestPage = typeof(OfficeTicTacToes) },
-                  new NavLink() { Label = "Search", Symbol = Symbol.Find,
-                     DestPage = typeof(SearchPeople)},
+                new NavLink() { Label = "Games", Symbol = Symbol.Play,
+                    DestPage = typeof(GamesView) },
+                new NavLink() { Label = "Leader board", Symbol = Symbol.Find,
+                     DestPage = typeof(LeadersView)},
                 new NavLink() { Label = "Settings", Symbol = Symbol.Setting,
-                    DestPage = typeof(Settings) },
+                    DestPage = typeof(SettingsView) },
                 new NavLink() { Label = "Disconnect", Symbol = Symbol.Import,
                     DestPage = typeof(DisconnectPage) },
             };
@@ -146,6 +146,7 @@ namespace OfficeTicTacToe
             sb.Begin();
 
         }
+      
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -181,7 +182,6 @@ namespace OfficeTicTacToe
                     this.ShellFrame.Navigate(navLink.DestPage, navLink.Arguments);
             }
         }
-
         public void Navigate(Type page, Object args = null)
         {
             this.ShellFrame.Navigate(page, args);
@@ -206,7 +206,6 @@ namespace OfficeTicTacToe
             if (this.CurrentIRefreshPage != null)
                 await this.CurrentIRefreshPage.Refresh();
         }
-
         private void ButtonTransparentForBigFinger_Click(object sender, RoutedEventArgs e)
         {
             Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
