@@ -187,8 +187,6 @@ namespace OfficeTicTacToe.Server.Controllers
 
             TicTacToeEngine engine = new TicTacToeEngine();
             engine.Initialise(game);
-
-            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
             game.IsTerminated = engine.IsGameFullCompleted(game.Board);
             if (game.IsTerminated)
             {

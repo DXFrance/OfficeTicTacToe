@@ -39,9 +39,77 @@
                           Foreground="#FF0070C0" />-->
             <StackPanel>
                 <StackPanel>
-                    <TextBlock Text="{Binding UserIdCreator}" Style="{StaticResource HeaderTextBlockStyle}"/>
+
+                    <Grid Margin="5" Background="White" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#C6C6C6C6" Grid.ColumnSpan="4" Grid.RowSpan="2" BorderThickness="2" />
+
+                        <Grid Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition  Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Name="WaitingImage" Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{Binding UserCreatorViewModel.Name}"
+                                       Stretch="UniformToFill" />
+                                <Image Grid.Column="0" Margin="5"  
+                                       Source="{Binding UserCreatorViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+                                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                    <TextBlock Text="{Binding UserCreatorViewModel.Name, Mode=OneWay}" FontWeight="Bold" FontSize="16" />
+                                    <TextBlock Text="{Binding UserCreatorViewModel.JobTitle, Mode=OneWay}"  FontSize="12" FontStyle="Italic" />
+                                    <TextBlock Text="{Binding UserCreatorViewModel.Email, Mode=OneWay}" FontSize="12" />
+
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <TextBlock Text="VS" Foreground="#FF0070C0" FontSize="20" Grid.Column="1" 
+                               FontWeight="SemiBold" Opacity="1.0" VerticalAlignment="Center" />
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition  Width="60" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="1"   Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{Binding UserCreatorViewModel.Name}"
+                                       Stretch="UniformToFill" />
+                                <Image Grid.Column="1"   Margin="5"  
+                                      
+                                       
+                                       Source="{Binding UserOpponentViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+                                <StackPanel Grid.Column="0" Margin="10,0,0,0">
+                                    <TextBlock Text="{Binding UserOpponentViewModel.Name, Mode=OneWay}" FontWeight="Bold" FontSize="16" />
+                                    <TextBlock Text="{Binding UserOpponentViewModel.JobTitle, Mode=OneWay}" FontSize="12" FontStyle="Italic" />
+                                    <TextBlock Text="{Binding UserOpponentViewModel.Email, Mode=OneWay}" FontSize="12" />
+
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+
+                    <!--<TextBlock Text="{Binding UserIdCreator}" Style="{StaticResource HeaderTextBlockStyle}"/>
                     <TextBlock Text=" vs "  Style="{StaticResource SubheaderTextBlockStyle}"/>
-                    <TextBlock Text="{Binding UserIdOpponent}"  Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text="{Binding UserIdOpponent}"  Style="{StaticResource HeaderTextBlockStyle}"/>-->
                 </StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
