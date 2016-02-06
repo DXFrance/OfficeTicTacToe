@@ -20,6 +20,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using OfficeTicTacToe.Common.Models;
+using OfficeTicTacToe.Common.Graph;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,15 +33,23 @@ namespace OfficeTicTacToe.Views
     public sealed partial class GamesView : BasePage
     {
         public ObservableCollection<UserViewModel> Users { get; set; }
-
-        
+        public ObservableCollection<Game> Games { get; set; }
         public GamesView()
         {
             this.InitializeComponent();
+            Loaded += GamesView_Loaded;
             this.Users = new ObservableCollection<UserViewModel>();
             this.NavigationCacheMode = NavigationCacheMode.Required;
             AutoSuggestBox.Text = string.Empty;
-
+        }
+        private async void GamesView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Games.Clear();
+            var games = await GameHelper.Current.GetGamesByUserId(UserViewModel.CurrentUser);
+            foreach (var game in games)
+            {
+                Games.Add(game);
+            }
         }
         public override string Title
         {
@@ -121,14 +131,18 @@ namespace OfficeTicTacToe.Views
         }
         private void UserViewModel_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as UserViewModel;
-
-            if (e == null)
+            var item = e?.ClickedItem as UserViewModel;
+            if (item == null)
                 return;
-
             item.UserCommand.Execute(null);
         }
-
-       
+        private void GamesListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var game = e?.ClickedItem as Game;
+            if (game == null)
+                return;
+            //GameCommand.Execute(null);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+        }
     }
 }

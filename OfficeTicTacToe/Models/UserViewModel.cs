@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
 
 namespace OfficeTicTacToe.Models
 {
@@ -467,6 +468,13 @@ namespace OfficeTicTacToe.Models
             return users.FirstOrDefault(u => u.Email == mail || u.UserPrincipalName == mail || u.WorkEmail == mail);
         }
 
+        internal static string CurrentUser
+        {
+            get
+            {
+                return ApplicationData.Current.RoamingSettings.Values["userEmail"].ToString();
+            }
+        }
         internal static UserViewModel GetUser(string userPrincipalName)
         {
             userPrincipalName = userPrincipalName.Trim();
@@ -474,13 +482,9 @@ namespace OfficeTicTacToe.Models
             {
                 if (string.IsNullOrEmpty(userPrincipalName))
                     return UserViewModel.Empty;
-
                 UserViewModel user = users.FirstOrDefault(u => u.Email == userPrincipalName || u.UserPrincipalName == userPrincipalName);
-
-
                 if (user != null)
                     return user;
-
                 user = new UserViewModel()
                 {
                     Email = userPrincipalName,
@@ -496,7 +500,6 @@ namespace OfficeTicTacToe.Models
                 Debug.WriteLine(ex.Message);
                 throw;
             }
-
         }
       
 

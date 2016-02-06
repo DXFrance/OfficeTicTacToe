@@ -25,7 +25,19 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ListView />
+                    <ListView
+                  Name="GamesListView"
+                  ItemsSource="{x:Bind Games, Mode=OneWay}" 
+                  Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
+                  HorizontalAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  SelectionMode="None"
+                  ItemClick="GamesListView_ItemClick"
+                  ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
+                  IsItemClickEnabled="True"   
+                  IsRightTapEnabled="False"
+                  IsDoubleTapEnabled="False"
+                        />
                 </Grid>
             </PivotItem>
             <PivotItem Header="New">
