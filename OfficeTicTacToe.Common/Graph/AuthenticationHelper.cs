@@ -20,6 +20,7 @@ namespace OfficeTicTacToe.Graph
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = "643e6b18-f2c3-4a0b-82ef-aa73ca8c2aab";
 
+
         private const string AccountProviderId = "https://login.microsoft.com";
         private const string Authority = "organizations";
 

@@ -3,6 +3,7 @@ using Microsoft.OData.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeTicTacToe.Common;
+using OfficeTicTacToe.Common.Graph;
 using OfficeTicTacToe.Graph;
 using OfficeTicTacToe.Models;
 using OfficeTicTacToe.Views;
@@ -75,10 +76,24 @@ namespace OfficeTicTacToe
 
             NavigationHelper.Current.RegisterShellFrame(ShellFrame);
 
+
             // Register singleton
-            this.Loaded += (s, e) =>
+            this.Loaded += async (s, e) =>
             {
                 current = this;
+
+                var game = await GameHelper.Current.CreateGame(new Common.Models.Game
+                {
+                    UserIdCreator = "spertus@microsoft.com",
+                    UserIdOpponent = "adanvy@microsoft.com"
+
+                });
+
+                game.Winner = "spertus@microsoft.com";
+
+                await GameHelper.Current.UpdateGame(game);
+
+                var lst = await GameHelper.Current.GetGamesByUserId(game.Winner);
 
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
@@ -131,7 +146,7 @@ namespace OfficeTicTacToe
             sb.Begin();
 
         }
-      
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
