@@ -285,9 +285,7 @@ namespace OfficeTicTacToe.ViewModels
         }
         private bool CellEnabled(int index)
         {
-            var r = (Board.Length > index) && (Board[index] == PAWN_EMPTY) && (UserIdCurrent == UserViewModel.CurrentUser);
-            Debug.WriteLine("Enabled" + index + "=" + r);
-            return r;
+            return (Board.Length > index) && (Board[index] == PAWN_EMPTY) && (UserIdCurrent == UserViewModel.CurrentUser);
         }
         public string UserIdWinner
         {
@@ -331,21 +329,21 @@ namespace OfficeTicTacToe.ViewModels
         {
             if (game == null)
                 return;
-            _InitialBoard = null;
             UserIdCreator = game.UserIdCreator;
             UserIdOpponent = game.UserIdOpponent;
             UserIdCurrent = game.UserIdCurrent;
             UserIdWinner = game.UserIdWinner;
             CreatedDate = game.CreatedDate;
             IsTerminated = game.IsTerminated;
-            Board = EMPTY_GAME;
+            _InitialBoard = null;
+            _Board = EMPTY_GAME;
             Board = game.Board;
         }
         public async Task Update()
         {
-            Debug.WriteLine("Before=" + UserIdCurrent);
+            Debug.WriteLine("Before=" + UserIdCurrent + " " + Board + "|" + InitialBoard);
             Assign(await GameHelper.Current.UpdateGameAsync(this));
-            Debug.WriteLine("After=" + UserIdCurrent);
+            Debug.WriteLine("After=" + UserIdCurrent + " " + Board + "|" + InitialBoard);
         }
         public async Task Refresh()
         {
