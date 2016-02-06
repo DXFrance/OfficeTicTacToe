@@ -147,13 +147,13 @@ namespace OfficeTicTacToe.Server.Controllers
                                    </visual>
                                 </toast>";
 
-                var headers = new Dictionary<string, string>();
-                headers.Add("Content-Type", "application/octet-stream");
-                headers.Add("X-WNS-Type", "wns/raw");
-
                 var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator;
 
-                Notification notification = new WindowsNotification(payload, headers);
+                Notification notification = new WindowsNotification(payload);
+                notification.Headers.Add("X-WNS-Cache-Policy", "cache");
+                notification.Headers.Add("X-WNS-Type", "wns/raw");
+                notification.ContentType = "application/octet-stream";
+
                 await hub.SendNotificationAsync(notification);
             }
             catch (DbUpdateConcurrencyException)
