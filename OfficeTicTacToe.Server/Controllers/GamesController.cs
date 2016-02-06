@@ -107,7 +107,26 @@ namespace OfficeTicTacToe.Server.Controllers
 
                 var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
 
+
                 await hub.SendWindowsNativeNotificationAsync(toast);
+
+                var payload = @"<toast>
+                                   <visual>
+                                       <binding template=""ToastText01"">
+                                           <text id=""1"">Hello from a .NET App!</text>
+                                       </binding>
+                                   </visual>
+                                </toast>";
+
+                //var headers = new Dictionary<string, string>();
+                //headers.Add("Content-Type", "application/octet-stream");
+                //headers.Add("X-WNS-Type", "wns/raw");
+
+                //var tag = game.
+
+                //Notification notification = new WindowsNotification(payload, headers, tag);
+                //await hub.SendNotificationAsync(notification);
+
             }
             catch (DbUpdateConcurrencyException)
             {
