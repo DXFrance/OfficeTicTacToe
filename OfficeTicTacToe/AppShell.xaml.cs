@@ -91,6 +91,8 @@ namespace OfficeTicTacToe
             {
                 new NavLink() { Label = "Games", Symbol = Symbol.Play,
                     DestPage = typeof(GamesView) },
+                new NavLink() { Label = "Board", Symbol = Symbol.AllApps,
+                    DestPage = typeof(BoardView) },
                 new NavLink() { Label = "Leader board", Symbol = Symbol.Find,
                      DestPage = typeof(LeadersView)},
                 new NavLink() { Label = "Settings", Symbol = Symbol.Setting,

@@ -12,12 +12,13 @@ namespace OfficeTicTacToe.ViewModels
         private int _Id;
         private string _UserIdCreator;
         private string _UserIdOpponent;
+        private string _UserIdCurrent;
         private DateTime? _CreatedDate;
         private bool _IsTerminated;
         private string _Board = "         ";
         private int? _GameResult;
         private int? _CurrentPlayerIndex;
-        private string _Winner;
+        private string _UserIdWinner;
 
         public int Id
         {
@@ -58,6 +59,20 @@ namespace OfficeTicTacToe.ViewModels
                 if (value == _UserIdOpponent)
                     return;
                 _UserIdOpponent = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string UserIdCurrent
+        {
+            get
+            {
+                return _UserIdCurrent;
+            }
+            set
+            {
+                if (value == _UserIdCurrent)
+                    return;
+                _UserIdCurrent = value;
                 RaisePropertyChanged();
             }
         }
@@ -172,45 +187,17 @@ namespace OfficeTicTacToe.ViewModels
         {
             return Board.Length > index ? Board[index].ToString() : "?";
         }
-        public Nullable<int> GameResult
+        public string UserIdWinner
         {
             get
             {
-                return _GameResult;
+                return _UserIdWinner;
             }
             set
             {
-                if (value == _GameResult)
+                if (value == _UserIdWinner)
                     return;
-                _GameResult = value;
-                RaisePropertyChanged();
-            }
-        }
-        public Nullable<int> CurrentPlayerIndex
-        {
-            get
-            {
-                return _CurrentPlayerIndex;
-            }
-            set
-            {
-                if (value == _CurrentPlayerIndex)
-                    return;
-                _CurrentPlayerIndex = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Winner
-        {
-            get
-            {
-                return _Winner;
-            }
-            set
-            {
-                if (value == _Winner)
-                    return;
-                _Winner = value;
+                _UserIdWinner = value;
                 RaisePropertyChanged();
             }
         }

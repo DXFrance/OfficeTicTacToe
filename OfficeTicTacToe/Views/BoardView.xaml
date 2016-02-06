@@ -27,28 +27,32 @@
             <!--<ProgressRing Grid.Row="0" HorizontalAlignment="Center" Width="50" Height="50" 
                           Margin="10" IsActive="False" Name="ProgressRingLoader"
                           Foreground="#FF0070C0" />-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell0, Mode=OneWay}"/>
-                <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell1, Mode=OneWay}"/>
-                <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell2, Mode=OneWay}"/>
-                <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell3, Mode=OneWay}"/>
-                <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell4, Mode=OneWay}"/>
-                <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell5, Mode=OneWay}"/>
-                <Button Tag="6" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell6, Mode=OneWay}"/>
-                <Button Tag="7" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell7, Mode=OneWay}"/>
-                <Button Tag="8" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell8, Mode=OneWay}"/>
-                <TextBlock Text="{Binding Board, Mode=OneWay}" />
-            </Grid>
+            <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell0, Mode=OneWay}"/>
+                    <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell1, Mode=OneWay}"/>
+                    <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell2, Mode=OneWay}"/>
+                    <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell3, Mode=OneWay}"/>
+                    <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell4, Mode=OneWay}"/>
+                    <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell5, Mode=OneWay}"/>
+                    <Button Tag="6" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell6, Mode=OneWay}"/>
+                    <Button Tag="7" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell7, Mode=OneWay}"/>
+                    <Button Tag="8" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell8, Mode=OneWay}"/>
+                </Grid>
+                <TextBlock Text="Board" />
+                <TextBlock Text="{Binding Board}" />
+                <Button Content="Put" Click="PutButton_Click" />
+            </StackPanel>
             <!--<Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="10" MaxWidth="200" />-->

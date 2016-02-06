@@ -85,9 +85,16 @@ namespace OfficeTicTacToe
 
             //GameViewModel game = new GameViewModel();
             //game.Board = "    X    ";
+            //game.CreatedDate = DateTime.UtcNow;
+            //game.UserIdCreator = "spertus@microsoft.com";
+            //game.UserIdCurrent = game.UserIdCreator;
+            //game.UserIdOpponent = "jarvis@tictactoe.com";
 
             //while (!game.IsTerminated)
+            //{
             //    game = await GameHelper.Current.GetJarvisMoveAsync("spertus@microsoft.com", game);
+            //    Debug.WriteLine(game.Board);
+            //}
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

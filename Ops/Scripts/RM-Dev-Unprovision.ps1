@@ -3,7 +3,7 @@ Param(
     $subscriptionName = "stephgou - Internal",
     $subscriptionId = "b1256985-d559-406d-a0ca-f47d72fed1e2",
     #Paramètres du Azure Ressource Group
-    $resourceGroupeName = "OfficeTicTacToe-PS-Dev"
+    $resourceGroupeName = "OfficeTicTacToe-RM-Dev"
     )
 
 #region init
