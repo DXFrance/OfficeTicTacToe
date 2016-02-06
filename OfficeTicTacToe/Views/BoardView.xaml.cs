@@ -74,17 +74,19 @@ namespace OfficeTicTacToe.Views
             }
         }
 
+        TaskScheduler uiScheduler;
         public BoardView()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+            uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             ((App)(App.Current)).Channel.PushNotificationReceived += Channel_PushNotificationReceived;
         }
 
         private async void Channel_PushNotificationReceived(Windows.Networking.PushNotifications.PushNotificationChannel sender, Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs args)
         {
-            await Refresh();
+            await Task.Factory.StartNew(Refresh, CancellationToken.None, TaskCreationOptions.None, uiScheduler);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
