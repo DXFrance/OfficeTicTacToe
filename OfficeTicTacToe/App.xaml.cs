@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Messaging;
 using OfficeTicTacToe.Common;
 using OfficeTicTacToe.Graph;
+using OfficeTicTacToe.ViewModels;
 using OfficeTicTacToe.Views;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace OfficeTicTacToe
 
             var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
             Registration result = null;
+
             try
             {
                 result = await hub.RegisterNativeAsync(channel.Uri);
@@ -53,6 +55,7 @@ namespace OfficeTicTacToe
             {
                 Debug.WriteLine(ex.Message);
             }
+
             // Displays the registration ID so you know it was successful
             if (result?.RegistrationId != null)
             {
@@ -80,6 +83,14 @@ namespace OfficeTicTacToe
             // Try to authenticate
             var token = await AuthenticationHelper.TryAuthenticateSilentlyAsync();
 
+            //GameViewModel game = new GameViewModel();
+            //game.Board = "    X    ";
+            //game.CreatedDate = DateTime.UtcNow;
+            //game.UserIdCreator = "spertus@microsoft.com";
+            //game.UserIdCurrent = game.UserIdCreator;
+
+            //while (!game.IsTerminated)
+            //    game = await GameHelper.Current.GetJarvisMoveAsync("spertus@microsoft.com", game);
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -117,9 +128,9 @@ namespace OfficeTicTacToe
             Window.Current.Activate();
         }
 
-      
-       
-   
+
+
+
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved

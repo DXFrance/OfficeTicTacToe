@@ -9,12 +9,15 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OfficeTicTacToe.Server.Models;
+using Microsoft.Azure.NotificationHubs;
+using System.Threading.Tasks;
 
 namespace OfficeTicTacToe.Server.Controllers
 {
     public class GamesController : ApiController
     {
-        private TicTacToeEntities db = new TicTacToeEntities();
+        private const string jarvisName = "jarvis@tictactoe.com";
+        private OfficeTicTacToeEntities db = new OfficeTicTacToeEntities();
 
         // GET: api/Games
         public IQueryable<Game> GetGames()
@@ -38,26 +41,32 @@ namespace OfficeTicTacToe.Server.Controllers
 
 
         [HttpPost]
-        [Route("api/Games/Move/{userId}")]
-        [ResponseType(typeof(Move))]
-        public IHttpActionResult MakeMove(string userId, Game game)
+        [Route("api/Games/Move/Jarvis/{userId}")]
+        [ResponseType(typeof(Game))]
+        public IHttpActionResult GetMoveFromComputer(string userId, Game game)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var move = new Move();
-            move.CreatedDate = DateTime.UtcNow;
-            move.CurrentPlayerIndex = game.CurrentPlayerIndex;
-            move.GameId = game.Id;
-            move.NewBoard = game.Board;
-            move.Winner = game.Winner;
-            move.GameResult = game.GameResult;
-            move.UserId = userId;
+            TicTacToeEngine engine = new TicTacToeEngine();
+            engine.Initialise(game);
 
-            db.Moves.Add(move);
-            db.SaveChanges();
+            var isMachineTurn = game.UserIdCurrent.ToLower().Trim() == jarvisName.ToLower().Trim();
 
-            return Ok(move);
+            var isEnded = engine.MakeBestMove(isMachineTurn);
+            game.UserIdCurrent = isMachineTurn ? userId : jarvisName;
+            game.IsTerminated = isEnded;
+            game.Board = engine.Board;
+            if (game.IsTerminated)
+            {
+                var result = engine.GetResultState(game.Board);
+                if (result == TicTacToeEngine.TicTacToeResult.MachineWin)
+                    game.UserIdWinner = jarvisName;
+                else
+                    game.UserIdWinner = userId;
+            }
+            return Ok(game);
+
         }
 
 
@@ -76,7 +85,7 @@ namespace OfficeTicTacToe.Server.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGame(int id, Game game)
+        public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
             {
@@ -93,6 +102,13 @@ namespace OfficeTicTacToe.Server.Controllers
             try
             {
                 db.SaveChanges();
+
+                NotificationHubClient hub = NotificationHubClient
+                                .CreateClientFromConnectionString("Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=+Au+w96izwXkztajDDeRB4r+6hsCsN0Gt1lN0Yg7lxM=", "OfficeTicTacToeNotificationHub");
+
+                var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
+
+                await hub.SendWindowsNativeNotificationAsync(toast);
             }
             catch (DbUpdateConcurrencyException)
             {

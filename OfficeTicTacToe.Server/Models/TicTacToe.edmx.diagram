@@ -4,9 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0714cee1b6aa41799e2b9cd6db6ea5c9" Name="Diagram1">
-        <EntityTypeShape EntityType="TicTacToeModel.Game" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TicTacToeModel.Move" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="11ac2d6da04547568116baccfb6d74a5" Name="Diagram1">
+        <EntityTypeShape EntityType="OfficeTicTacToeModel.Game" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

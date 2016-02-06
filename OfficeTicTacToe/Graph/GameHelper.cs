@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OfficeTicTacToe.Common.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,7 +31,7 @@ namespace OfficeTicTacToe.Graph
             }
         }
 
-        public async Task<GameViewModel> CreateGame(GameViewModel game)
+        public async Task<GameViewModel> CreateGameAsync(GameViewModel game)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace OfficeTicTacToe.Graph
                 return null;
             }
         }
-        public async Task UpdateGame(GameViewModel move)
+        public async Task UpdateGameAsync(GameViewModel move)
         {
             try
             {
@@ -70,17 +70,17 @@ namespace OfficeTicTacToe.Graph
             }
         }
 
-        public async Task<Move> MakeMove(string userId, GameViewModel game)
+        public async Task<GameViewModel> GetJarvisMoveAsync(string userId, GameViewModel game)
         {
             try
             {
-                var uri = new Uri(ServerUri + "/api/Games/Move/" + userId + "/");
+                var uri = new Uri(ServerUri + "/api/Games/Move/Jarvis/" + userId + "/");
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
 
-                var move = await this.PostAsync<Move>(uri, scontent);
+                var newGame = await this.PostAsync<GameViewModel>(uri, scontent);
 
-                return move;
+                return newGame;
             }
             catch (Exception ex)
             {
@@ -88,8 +88,9 @@ namespace OfficeTicTacToe.Graph
                 return null;
             }
         }
+      
 
-        public async Task<GameViewModel> GetGame(int id)
+        public async Task<GameViewModel> GetGameAsync(int id)
         {
             try
             {
@@ -102,7 +103,7 @@ namespace OfficeTicTacToe.Graph
                 return null;
             }
         }
-        public async Task<List<GameViewModel>> GetGames()
+        public async Task<List<GameViewModel>> GetGamesAsync()
         {
             try
             {
@@ -116,7 +117,7 @@ namespace OfficeTicTacToe.Graph
             }
 
         }
-        public async Task<List<GameViewModel>> GetGamesByUserId(string userId)
+        public async Task<List<GameViewModel>> GetGamesByUserIdAsync(string userId)
         {
             try
             {
@@ -132,7 +133,7 @@ namespace OfficeTicTacToe.Graph
 
 
 
-        public async Task DeleteGame(int id)
+        public async Task DeleteGameAsync(int id)
         {
             try
             {
@@ -144,83 +145,7 @@ namespace OfficeTicTacToe.Graph
                 Debug.WriteLine(ex.Message);
             }
         }
-        public async Task<Move> CreateMove(Move move)
-        {
-            try
-            {
-                if (!move.CreatedDate.HasValue)
-                    move.CreatedDate = DateTime.UtcNow;
-
-                var uri = new Uri(ServerUri + "/api/Moves");
-
-                StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
-
-                return await this.PostAsync<Move>(uri, scontent);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-        }
-        public async Task UpdateMove(Move move)
-        {
-            try
-            {
-                if (!move.CreatedDate.HasValue)
-                    move.CreatedDate = DateTime.UtcNow;
-
-                var uri = new Uri(ServerUri + "/api/Moves/" + move.Id);
-
-                StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
-
-                await this.PutAsync<Move>(uri, scontent);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-            }
-        }
-        public async Task<Move> GetMove(int id)
-        {
-            try
-            {
-                var uri = new Uri(ServerUri + "/api/Moves/" + id);
-                return await this.GetAsync<Move>(uri);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-        }
-        public async Task<List<Move>> GetMoves()
-        {
-            try
-            {
-                var uri = new Uri(ServerUri + "/api/Moves");
-                return await this.GetAsync<List<Move>>(uri);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-
-        }
-        public async Task DeleteMove(int id)
-        {
-            try
-            {
-                var uri = new Uri(ServerUri + "/api/Moves/" + id);
-                await this.DeleteAsync<Move>(uri);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
+     
 
         private async Task<T> DeleteAsync<T>(Uri uri)
         {
