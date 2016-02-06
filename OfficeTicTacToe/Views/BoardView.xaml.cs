@@ -78,8 +78,15 @@ namespace OfficeTicTacToe.Views
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            ((App)(App.Current)).Channel.PushNotificationReceived += Channel_PushNotificationReceived;
         }
-      
+
+        private async void Channel_PushNotificationReceived(Windows.Networking.PushNotifications.PushNotificationChannel sender, Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs args)
+        {
+            await Refresh();
+        }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

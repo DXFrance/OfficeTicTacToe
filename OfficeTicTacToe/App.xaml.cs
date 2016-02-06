@@ -42,18 +42,18 @@ namespace OfficeTicTacToe
             
         }
 
+        public PushNotificationChannel Channel { get; set; }
+
         private async void InitNotificationsAsync()
         {
-            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+            Channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
             var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
             Registration result = null;
 
             try
             {
-                result = await hub.RegisterNativeAsync(channel.Uri);
-
-                channel.PushNotificationReceived += Channel_PushNotificationReceived;
+                result = await hub.RegisterNativeAsync(Channel.Uri);
             }
             catch (RegistrationException ex)
             {
@@ -66,11 +66,6 @@ namespace OfficeTicTacToe
                 Debug.WriteLine("Channel Registered: " + result.RegistrationId);
             }
 
-            
-        }
-
-        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
-        {
             
         }
 
