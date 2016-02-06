@@ -15,7 +15,8 @@ namespace OfficeTicTacToe.Graph
 {
     public class GameHelper
     {
-
+        
+       // private const string ServerUri = "http://localhost:17225/";
         private const string ServerUri = "http://prod-officetictactoe.azurewebsites.net";
 
         private static GameHelper current;

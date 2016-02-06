@@ -133,10 +133,10 @@ namespace OfficeTicTacToe.Server.Controllers
                 NotificationHubClient hub = NotificationHubClient
                                 .CreateClientFromConnectionString("Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=+Au+w96izwXkztajDDeRB4r+6hsCsN0Gt1lN0Yg7lxM=", "OfficeTicTacToeNotificationHub");
 
-                var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
+                //var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
 
 
-                await hub.SendWindowsNativeNotificationAsync(toast);
+                //await hub.SendWindowsNativeNotificationAsync(toast);
 
                 var payload = @"<toast>
                                    <visual>
@@ -152,8 +152,8 @@ namespace OfficeTicTacToe.Server.Controllers
 
                 var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator;
 
-                //Notification notification = new WindowsNotification(payload, headers, tag);
-                //await hub.SendNotificationAsync(notification);
+                Notification notification = new WindowsNotification(payload, headers);
+                await hub.SendNotificationAsync(notification);
             }
             catch (DbUpdateConcurrencyException)
             {
