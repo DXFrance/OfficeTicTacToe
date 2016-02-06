@@ -75,15 +75,10 @@ namespace OfficeTicTacToe
             this.InitializeComponent();
 
             NavigationHelper.Current.RegisterShellFrame(ShellFrame);
-
-
             // Register singleton
-            this.Loaded += async (s, e) =>
+            this.Loaded += (s, e) =>
             {
                 current = this;
-
-  
-
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
                     this.Navigate(typeof(GamesView));
