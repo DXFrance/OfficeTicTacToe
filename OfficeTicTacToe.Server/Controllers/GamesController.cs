@@ -49,7 +49,7 @@ namespace OfficeTicTacToe.Server.Controllers
             move.NewBoard = game.Board;
             move.Winner = game.Winner;
             move.GameResult = game.GameResult;
-
+            move.UserId = userId;
 
             var games = from g in db.Games
                         where ((g.UserIdCreator == userId) ||
