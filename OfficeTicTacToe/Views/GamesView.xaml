@@ -18,7 +18,6 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBlock Text="TitleBlock" Style="{ThemeResource CaptionTextBlockStyle}" />
             <Pivot>
                 <PivotItem >
                     <PivotItem.Header>
