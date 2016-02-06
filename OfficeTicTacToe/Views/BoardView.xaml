@@ -38,6 +38,11 @@
                           Margin="10" IsActive="False" Name="ProgressRingLoader"
                           Foreground="#FF0070C0" />-->
             <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding UserIdCreator}" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text=" vs "  Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="{Binding UserIdOpponent}"  Style="{StaticResource HeaderTextBlockStyle}"/>
+                </StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -58,7 +63,7 @@
                     <Button Tag="6" Grid.Row="2" Grid.Column="0" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell6Value, Mode=OneWay}" IsEnabled="{Binding Cell6Enabled}"/>
                     <Button Tag="7" Grid.Row="2" Grid.Column="1" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell7Value, Mode=OneWay}" IsEnabled="{Binding Cell7Enabled}"/>
                     <Button Tag="8" Grid.Row="2" Grid.Column="2" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell8Value, Mode=OneWay}" IsEnabled="{Binding Cell8Enabled}"/>
-                </Grid>                                                                                                               
+                </Grid>
                 <!--<TextBlock Text="Board" />
                 <TextBlock Text="{Binding Board}" />-->
                 <Button Content="Update" Command="{Binding UpdateCommand}" />

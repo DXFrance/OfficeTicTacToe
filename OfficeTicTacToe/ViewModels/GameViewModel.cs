@@ -326,8 +326,7 @@ namespace OfficeTicTacToe.ViewModels
         }
         public async Task Update()
         {
-            await GameHelper.Current.UpdateGameAsync(this);
-            var game = await GameHelper.Current.GetGameAsync(Id);
+            var game = await GameHelper.Current.UpdateGameAsync(this);
             _InitialBoard = null;
             Board = game.Board;
             UserIdCreator = game.UserIdCreator;
