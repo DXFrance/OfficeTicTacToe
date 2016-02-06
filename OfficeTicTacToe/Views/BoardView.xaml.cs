@@ -195,7 +195,7 @@ namespace OfficeTicTacToe.Views
         }
         private async void PutButton_Click(object sender, RoutedEventArgs e)
         {
-            await GameHelper.Current.UpdateGame(Game);
+            await GameHelper.Current.UpdateGameAsync(Game);
         }
     }
 }

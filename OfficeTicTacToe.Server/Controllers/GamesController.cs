@@ -84,7 +84,7 @@ namespace OfficeTicTacToe.Server.Controllers
         }
 
         // PUT: api/Games/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(Game))]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
@@ -95,6 +95,20 @@ namespace OfficeTicTacToe.Server.Controllers
             if (id != game.Id)
             {
                 return BadRequest();
+            }
+
+            TicTacToeEngine engine = new TicTacToeEngine();
+            engine.Initialise(game);
+
+            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+            game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+            if (game.IsTerminated)
+            {
+                var result = engine.GetResultState(game.Board);
+                if (result == TicTacToeEngine.TicTacToeResult.MachineWin)
+                    game.UserIdWinner = game.UserIdOpponent;
+                else
+                    game.UserIdWinner = game.UserIdCreator;
             }
 
             db.Entry(game).State = EntityState.Modified;
@@ -122,7 +136,7 @@ namespace OfficeTicTacToe.Server.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(game);
         }
 
         // POST: api/Games
