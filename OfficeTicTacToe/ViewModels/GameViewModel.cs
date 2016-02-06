@@ -286,6 +286,7 @@ namespace OfficeTicTacToe.ViewModels
         private bool CellEnabled(int index)
         {
             var r = (Board.Length > index) && (Board[index] == PAWN_EMPTY) && (UserIdCurrent == UserViewModel.CurrentUser);
+            Debug.WriteLine("Enabled" + index + "=" + r);
             return r;
         }
         public string UserIdWinner
@@ -340,6 +341,7 @@ namespace OfficeTicTacToe.ViewModels
             UserIdWinner = game.UserIdWinner;
             CreatedDate = game.CreatedDate;
             IsTerminated = game.IsTerminated;
+            Board = EMPTY_GAME;
             Board = game.Board;
         }
     }
