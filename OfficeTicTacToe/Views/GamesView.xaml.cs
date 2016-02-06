@@ -5,6 +5,7 @@ using OfficeTicTacToe.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -30,10 +31,70 @@ namespace OfficeTicTacToe.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GamesView : BasePage
+    public sealed partial class GamesView : INotifyPropertyChanged
     {
         public ObservableCollection<UserViewModel> Users { get; set; }
-        public ObservableCollection<Game> Games { get; set; }
+<<<<<<< .mine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+
+        private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
+        private CancellationTokenSource tokenSource;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public bool IsPageEnabled
+        {
+            get
+            {
+                return AppShell.Current.Splitter.IsPaneOpen;
+            }
+            set
+            {
+                AppShell.Current.Splitter.IsPaneOpen = value;
+                AppShell.Current.Splitter.IsEnabled = value;
+                AppShell.Current.ShellFrame.IsEnabled = value;
+
+            }
+        }
+
+>>>>>>> .theirs
         public GamesView()
         {
             this.InitializeComponent();
@@ -42,6 +103,8 @@ namespace OfficeTicTacToe.Views
             this.NavigationCacheMode = NavigationCacheMode.Required;
             AutoSuggestBox.Text = string.Empty;
         }
+        public string Title
+<<<<<<< .mine
         private async void GamesView_Loaded(object sender, RoutedEventArgs e)
         {
             Games.Clear();
@@ -52,12 +115,33 @@ namespace OfficeTicTacToe.Views
             }
         }
         public override string Title
+=======
+        public string Title
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
         {
             get
             {
                 return "search people";
             }
         }
+
+        public Microsoft.Graph.GraphService Graph
+        {
+            get
+            {
+                return this.graph;
+            }
+        }
+
         public async Task<List<Microsoft.Graph.IUser>> Search(string val, CancellationToken token)
         {
             token.ThrowIfCancellationRequested();
@@ -76,6 +160,70 @@ namespace OfficeTicTacToe.Views
         {
             base.OnNavigatedFrom(e);
         }
+
+        public void CancelTokenSource()
+        {
+            if (tokenSource != null)
+            {
+                lock (lockObject)
+                {
+                    if (tokenSource != null)
+                    {
+                        try
+                        {
+                            tokenSource.Cancel();
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
+            }
+        }
+
+        public CancellationTokenSource TokenSource
+        {
+            get
+            {
+                return this.tokenSource;
+            }
+            set
+            {
+                this.tokenSource = value;
+            }
+        }
+
+        public bool IsRefreshButtonEnabled
+        {
+            get
+            {
+                return AppShell.Current.RefreshButton.IsEnabled;
+            }
+            set
+            {
+                AppShell.Current.RefreshButton.IsEnabled = value;
+            }
+        }
+
+        private bool isLoading = false;
+
+        /// <summary>
+        /// you can use IsLoading for any loading purpose
+        /// </summary>
+        public bool IsLoading
+        {
+            get
+            {
+                return isLoading;
+            }
+
+            set
+            {
+                isLoading = value;
+                RaisePropertyChanged(nameof(IsLoading));
+            }
+        }
+
         private async void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!string.IsNullOrEmpty(args.QueryText))

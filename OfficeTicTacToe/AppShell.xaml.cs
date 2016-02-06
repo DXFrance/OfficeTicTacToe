@@ -79,6 +79,7 @@ namespace OfficeTicTacToe
             this.Loaded += (s, e) =>
             {
                 current = this;
+
                 var pageType = this.ShellFrame.CurrentSourcePageType;
                 if (pageType == null || pageType == typeof(DisconnectPage))
                     this.Navigate(typeof(GamesView));
@@ -130,7 +131,7 @@ namespace OfficeTicTacToe
             sb.Begin();
 
         }
-      
+
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

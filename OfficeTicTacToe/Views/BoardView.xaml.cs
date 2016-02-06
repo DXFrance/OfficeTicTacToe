@@ -36,15 +36,42 @@ namespace OfficeTicTacToe.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BoardView : BasePage, IRefreshPage
+    public sealed partial class BoardView : IRefreshPage
     {
-        public override string Title
+        private CancellationTokenSource tokenSource;
+
+        public CancellationTokenSource TokenSource
+        {
+            get
+            {
+                return this.tokenSource;
+            }
+            set
+            {
+                this.tokenSource = value;
+            }
+        }
+
+        public bool IsRefreshButtonEnabled
+        {
+            get
+            {
+                return AppShell.Current.RefreshButton.IsEnabled;
+            }
+            set
+            {
+                AppShell.Current.RefreshButton.IsEnabled = value;
+            }
+        }
+
+        public string Title
         {
             get
             {
                 return "office tic tac toe";
             }
         }
+
         public BoardView()
         {
             this.InitializeComponent();
@@ -85,6 +112,7 @@ namespace OfficeTicTacToe.Views
         {
             base.OnNavigatedFrom(e);
         }
+
         public async Task Refresh()
         {
             using (this.TokenSource = new CancellationTokenSource())

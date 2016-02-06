@@ -94,7 +94,6 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Compile Include="Common\BasePage.cs" />
-    <Compile Include="Common\DebugListView.cs" />
     <Compile Include="Common\ImageHelper.cs" />
     <Compile Include="Common\IRefreshPage.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
