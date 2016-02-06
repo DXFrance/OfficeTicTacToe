@@ -22,8 +22,22 @@ namespace OfficeTicTacToe.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DisconnectPage : BasePage
+    public sealed partial class DisconnectPage
     {
+        public bool IsPageEnabled
+        {
+            get
+            {
+                return AppShell.Current.Splitter.IsPaneOpen;
+            }
+            set
+            {
+                AppShell.Current.Splitter.IsPaneOpen = value;
+                AppShell.Current.Splitter.IsEnabled = value;
+                AppShell.Current.ShellFrame.IsEnabled = value;
+
+            }
+        }
 
         private async System.Threading.Tasks.Task Disconnect()
         {
@@ -38,7 +52,7 @@ namespace OfficeTicTacToe.Views
             rootFrame.Navigate(typeof(LoginPage));
         }
 
-        public override string Title
+        public string Title
         {
             get
             {

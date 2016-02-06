@@ -22,13 +22,13 @@ namespace OfficeTicTacToe.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LeadersView : BasePage
+    public sealed partial class LeadersView
     {
         public LeadersView()
         {
             this.InitializeComponent();
         }
-        public override string Title
+        public string Title
         {
             get
             {
@@ -37,7 +37,7 @@ namespace OfficeTicTacToe.Views
         }
         private void DisconnectionButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Navigate(typeof(DisconnectPage));
+            AppShell.Current.Navigate(typeof(DisconnectPage));
         }
     }
 }

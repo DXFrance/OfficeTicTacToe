@@ -1,4 +1,4 @@
-﻿<common:BasePage
+﻿<Page
     x:Class="OfficeTicTacToe.Views.DisconnectPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,4 +14,4 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ctrl:PivotItemWaiter Text="Disconnection. Please wait ..." />
     </Grid>
-</common:BasePage>
+</Page>
