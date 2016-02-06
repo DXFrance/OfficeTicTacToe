@@ -52,7 +52,8 @@ namespace OfficeTicTacToe
             try
             {
                 result = await hub.RegisterNativeAsync(channel.Uri);
-                
+
+                channel.PushNotificationReceived += Channel_PushNotificationReceived;
             }
             catch (RegistrationException ex)
             {
@@ -67,6 +68,12 @@ namespace OfficeTicTacToe
 
             
         }
+
+        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
+        {
+            
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
