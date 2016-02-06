@@ -4,8 +4,8 @@ Param(
     #Paramètres du Azure Ressource Group
     $subscriptionName = "stephgou - Internal",
     $subscriptionId = "b1256985-d559-406d-a0ca-f47d72fed1e2",
-    $resourceGroupeName = "QAOfficeTicTacToe",
-    $resourceGroupeDeploymentName = "OfficeTicTacToe-PS-QA",
+    $resourceGroupeName = "OfficeTicTacToe-PS-QA",
+    $resourceGroupeDeploymentName = "QAOfficeTicTacToeDeployed",
     $resourceLocation = "West Us",
     $publishSettingsFile = (Resolve-Path "C:\DEMOS\21 - CLOUD\AZURE\Azure Keys\stephgou - Internal.publishsettings"),
     $templateFile = "azuredeploy.json",

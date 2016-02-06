@@ -28,7 +28,7 @@ Write-Host "scriptFolder" $scriptFolder
 set-location $scriptFolder
 #endregion init
 
-#Login-AzureRmAccount -SubscriptionId $subscriptionId
+Login-AzureRmAccount -SubscriptionId $subscriptionId
 
 # Resource groupe create
 New-AzureRmResourceGroup `
@@ -46,6 +46,7 @@ New-AzureRmResourceGroupDeployment `
     -Verbose `
     #-StorageAccountName $storageAccountName `
 
+<#
 $siteName = "prod-OfficeTicTacToe"
 $testSlotName = "preview"
 
@@ -64,3 +65,5 @@ $rule1.MaxReroutePercentage = 50;
 Set-AzureWebsite $siteName -Slot Production -RoutingRules $rule1
 $d = get-date
 Write-Host "Stopping Deployment $d"
+
+#>

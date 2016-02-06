@@ -149,6 +149,7 @@
     <Content Include="Models\TicTacToe.edmx.diagram">
       <DependentUpon>TicTacToe.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Prod-OfficeTicTacToe - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
