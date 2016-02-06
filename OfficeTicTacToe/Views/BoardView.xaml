@@ -11,6 +11,16 @@
     xmlns:views="using:OfficeTicTacToe.Views"
     mc:Ignorable="d"
     DataContext="{Binding Game, RelativeSource={RelativeSource Self}}">
+    <Page.Resources>
+        <Style TargetType="Button"  x:Key="PawnButtonStyle">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="FontSize" Value="42"/>
+            <Setter Property="BorderBrush" Value="Blue" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,6 +38,11 @@
                           Margin="10" IsActive="False" Name="ProgressRingLoader"
                           Foreground="#FF0070C0" />-->
             <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding UserIdCreator}" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text=" vs "  Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="{Binding UserIdOpponent}"  Style="{StaticResource HeaderTextBlockStyle}"/>
+                </StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -39,19 +54,19 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Tag="0" Grid.Row="0" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell0, Mode=OneWay}"/>
-                    <Button Tag="1" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell1, Mode=OneWay}"/>
-                    <Button Tag="2" Grid.Row="0" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell2, Mode=OneWay}"/>
-                    <Button Tag="3" Grid.Row="1" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell3, Mode=OneWay}"/>
-                    <Button Tag="4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell4, Mode=OneWay}"/>
-                    <Button Tag="5" Grid.Row="1" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell5, Mode=OneWay}"/>
-                    <Button Tag="6" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell6, Mode=OneWay}"/>
-                    <Button Tag="7" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell7, Mode=OneWay}"/>
-                    <Button Tag="8" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Click="Button_Click" Content="{Binding Cell8, Mode=OneWay}"/>
+                    <Button Tag="0" Grid.Row="0" Grid.Column="0" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell0Value, Mode=OneWay}" IsEnabled="{Binding Cell0Enabled}"/>
+                    <Button Tag="1" Grid.Row="0" Grid.Column="1" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell1Value, Mode=OneWay}" IsEnabled="{Binding Cell1Enabled}"/>
+                    <Button Tag="2" Grid.Row="0" Grid.Column="2" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell2Value, Mode=OneWay}" IsEnabled="{Binding Cell2Enabled}"/>
+                    <Button Tag="3" Grid.Row="1" Grid.Column="0" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell3Value, Mode=OneWay}" IsEnabled="{Binding Cell3Enabled}"/>
+                    <Button Tag="4" Grid.Row="1" Grid.Column="1" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell4Value, Mode=OneWay}" IsEnabled="{Binding Cell4Enabled}"/>
+                    <Button Tag="5" Grid.Row="1" Grid.Column="2" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell5Value, Mode=OneWay}" IsEnabled="{Binding Cell5Enabled}"/>
+                    <Button Tag="6" Grid.Row="2" Grid.Column="0" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell6Value, Mode=OneWay}" IsEnabled="{Binding Cell6Enabled}"/>
+                    <Button Tag="7" Grid.Row="2" Grid.Column="1" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell7Value, Mode=OneWay}" IsEnabled="{Binding Cell7Enabled}"/>
+                    <Button Tag="8" Grid.Row="2" Grid.Column="2" Style="{StaticResource PawnButtonStyle}" Click="Button_Click" Content="{Binding Cell8Value, Mode=OneWay}" IsEnabled="{Binding Cell8Enabled}"/>
                 </Grid>
-                <TextBlock Text="Board" />
-                <TextBlock Text="{Binding Board}" />
-                <Button Content="Put" Click="PutButton_Click" />
+                <!--<TextBlock Text="Board" />
+                <TextBlock Text="{Binding Board}" />-->
+                <Button Content="Update" Command="{Binding UpdateCommand}" />
             </StackPanel>
             <!--<Image Source="/Assets/LogoMid.png" Grid.Row="2" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
