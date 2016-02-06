@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Messaging;
 using OfficeTicTacToe.Common;
 using OfficeTicTacToe.Graph;
+using OfficeTicTacToe.ViewModels;
 using OfficeTicTacToe.Views;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,11 @@ namespace OfficeTicTacToe
             // Try to authenticate
             var token = await AuthenticationHelper.TryAuthenticateSilentlyAsync();
 
+            //GameViewModel game = new GameViewModel();
+            //game.Board = "    X    ";
+
+            //while (!game.IsTerminated)
+            //    game = await GameHelper.Current.GetJarvisMoveAsync("spertus@microsoft.com", game);
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -119,9 +125,9 @@ namespace OfficeTicTacToe
             Window.Current.Activate();
         }
 
-      
-       
-   
+
+
+
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
