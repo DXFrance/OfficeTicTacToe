@@ -185,6 +185,7 @@ namespace OfficeTicTacToe.Server.Controllers
             }
             catch (Exception ex)
             {
+                Trace.WriteLine(ex.Message);
             }
 
             return Ok(game);
