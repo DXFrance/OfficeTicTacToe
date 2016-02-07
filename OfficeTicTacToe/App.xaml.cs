@@ -42,17 +42,18 @@ namespace OfficeTicTacToe
             
         }
 
+        public PushNotificationChannel Channel { get; set; }
+
         private async void InitNotificationsAsync()
         {
-            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+            Channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
             var hub = new NotificationHub("OfficeTicTacToeNotificationHub", "Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=iojKHPCa3oXRAL7WBK8o+ulDGx8SV0QM6CwiGP8pgv0=");
             Registration result = null;
 
             try
             {
-                result = await hub.RegisterNativeAsync(channel.Uri);
-                
+                result = await hub.RegisterNativeAsync(Channel.Uri);
             }
             catch (RegistrationException ex)
             {
@@ -67,6 +68,7 @@ namespace OfficeTicTacToe
 
             
         }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -94,6 +96,13 @@ namespace OfficeTicTacToe
             //game.UserIdCreator = "spertus@microsoft.com";
             //game.UserIdCurrent = game.UserIdCreator;
             //game.UserIdOpponent = "jarvis@tictactoe.com";
+
+            //var games = await GameHelper.Current.GetGamesAsync();
+
+            //var gameO = games[0];
+
+            //var gameP = await GameHelper.Current.UpdateGameAsync(gameO);
+
 
             //while (!game.IsTerminated)
             //{

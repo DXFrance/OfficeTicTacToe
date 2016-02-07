@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using OfficeTicTacToe.Server.Models;
 using Microsoft.Azure.NotificationHubs;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace OfficeTicTacToe.Server.Controllers
 {
@@ -33,6 +34,7 @@ namespace OfficeTicTacToe.Server.Controllers
             var games = from g in db.Games
                         where ((g.UserIdCreator == userId) ||
                                (g.UserIdOpponent == userId))
+                               && g.IsTerminated == false
                         select g;
 
             return games;
@@ -98,6 +100,8 @@ namespace OfficeTicTacToe.Server.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(Game))]
+        [Route("api/Games/{id}/update")]
+        [HttpPost]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
@@ -113,8 +117,21 @@ namespace OfficeTicTacToe.Server.Controllers
             TicTacToeEngine engine = new TicTacToeEngine();
             engine.Initialise(game);
 
-            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+ 
+            if (game.UserIdOpponent == jarvisName)
+            {
+                var isMachineTurn = game.UserIdCurrent.ToLower().Trim() != jarvisName.ToLower().Trim();
+                var isEnded = engine.MakeBestMove(isMachineTurn);
+                game.Board = engine.Board;
+            }
+            else
+            {
+                game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
+
+            }
             game.IsTerminated = engine.IsGameFullCompleted(game.Board);
+
+
             if (game.IsTerminated)
             {
                 var result = engine.GetResultState(game.Board);
@@ -133,10 +150,10 @@ namespace OfficeTicTacToe.Server.Controllers
                 NotificationHubClient hub = NotificationHubClient
                                 .CreateClientFromConnectionString("Endpoint=sb://tictactoenotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=+Au+w96izwXkztajDDeRB4r+6hsCsN0Gt1lN0Yg7lxM=", "OfficeTicTacToeNotificationHub");
 
-                var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
+                //var toast = @"<toast><visual><binding template=""ToastText01""><text id=""1"">Hello from a .NET App!</text></binding></visual></toast>";
 
 
-                await hub.SendWindowsNativeNotificationAsync(toast);
+                //await hub.SendWindowsNativeNotificationAsync(toast);
 
                 var payload = @"<toast>
                                    <visual>
@@ -146,14 +163,14 @@ namespace OfficeTicTacToe.Server.Controllers
                                    </visual>
                                 </toast>";
 
-                var headers = new Dictionary<string, string>();
-                headers.Add("Content-Type", "application/octet-stream");
-                headers.Add("X-WNS-Type", "wns/raw");
-
                 var tag = (game.UserIdCurrent == game.UserIdCreator) ? game.UserIdOpponent : game.UserIdCreator;
 
-                //Notification notification = new WindowsNotification(payload, headers, tag);
-                //await hub.SendNotificationAsync(notification);
+                Notification notification = new WindowsNotification(payload);
+                notification.Headers.Add("X-WNS-Cache-Policy", "cache");
+                notification.Headers.Add("X-WNS-Type", "wns/raw");
+                notification.ContentType = "application/octet-stream";
+
+                await hub.SendNotificationAsync(notification);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -165,6 +182,9 @@ namespace OfficeTicTacToe.Server.Controllers
                 {
                     throw;
                 }
+            }
+            catch (Exception ex)
+            {
             }
 
             return Ok(game);
@@ -181,8 +201,6 @@ namespace OfficeTicTacToe.Server.Controllers
 
             TicTacToeEngine engine = new TicTacToeEngine();
             engine.Initialise(game);
-
-            game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
             game.IsTerminated = engine.IsGameFullCompleted(game.Board);
             if (game.IsTerminated)
             {

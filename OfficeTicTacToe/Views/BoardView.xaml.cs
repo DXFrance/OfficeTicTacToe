@@ -74,16 +74,27 @@ namespace OfficeTicTacToe.Views
             }
         }
 
+        TaskScheduler uiScheduler;
         public BoardView()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+            uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
+            ((App)(App.Current)).Channel.PushNotificationReceived += Channel_PushNotificationReceived;
         }
-      
+
+        private async void Channel_PushNotificationReceived(Windows.Networking.PushNotifications.PushNotificationChannel sender, Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs args)
+        {
+            Debug.WriteLine("Notification received");
+            await Task.Factory.StartNew(Refresh, CancellationToken.None, TaskCreationOptions.None, uiScheduler);
+        }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Game = e?.Parameter as GameViewModel ?? new GameViewModel();
+            DataContext = Game;
             using (this.TokenSource = new CancellationTokenSource())
             {
                 try
@@ -141,8 +152,8 @@ namespace OfficeTicTacToe.Views
         public async Task Refresh(CancellationToken token, bool forceRefresh = false)
         {
 
-
-
+            if (Game != null)
+                await Game.Refresh();
 
             StackPanelLoader.Visibility = Visibility.Visible;
             StackPanelLoader.Opacity = 1.0d;
@@ -181,7 +192,7 @@ namespace OfficeTicTacToe.Views
 
             // sb.Begin();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
             if (button == null)
@@ -189,13 +200,14 @@ namespace OfficeTicTacToe.Views
             var cell = Convert.ToInt16(button.Tag);
             if ((cell < 0) || (cell > Game.Board.Length))
                 return;
-            var board = Game.Board.ToArray();
-            board[cell] = 'X';
-            Game.Board = new string(board);
-        }
-        private async void PutButton_Click(object sender, RoutedEventArgs e)
-        {
-            await GameHelper.Current.UpdateGameAsync(Game);
+            var board = Game.InitialBoard.ToArray();
+            if (board[cell] == ' ')
+            {
+                board[cell] = Game.CurrentPawn;
+                Game.Board = new string(board);
+            }
+
+            await Game.Update();
         }
     }
 }

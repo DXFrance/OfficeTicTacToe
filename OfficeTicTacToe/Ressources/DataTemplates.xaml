@@ -17,7 +17,7 @@
     <conv:BoardConverter x:Key="BoardConverter" />
     <conv:DebugConverter x:Key="DebugConverter" />
 
-  
+
     <DataTemplate x:DataType="viewmodels:UserViewModel"  x:Key="UserViewModelTemplate" >
         <Grid Margin="0,0,0,0" Background="White" HorizontalAlignment="Stretch" Height="60">
             <Grid.ColumnDefinitions>
@@ -49,6 +49,79 @@
 
             </StackPanel>
 
+        </Grid>
+    </DataTemplate>
+
+
+    <DataTemplate x:DataType="viewmodels:GameViewModel"  x:Key="GameViewModelTemplate" >
+        <Grid Margin="0,0,0,0" Background="White" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="#C6C6C6C6" Grid.ColumnSpan="4" Grid.RowSpan="2" BorderThickness="2" />
+
+            <Grid Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition  Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Name="WaitingImage" Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{x:Bind UserCreatorViewModel.Name}"
+                                       x:Phase="1"
+                                       Stretch="UniformToFill" />
+                    <Image Grid.Column="0" Margin="5"  
+                                       x:Phase="3" 
+                                       Source="{x:Bind UserCreatorViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="{x:Bind UserCreatorViewModel.Name, Mode=OneWay}" x:Phase="2" FontWeight="Bold" FontSize="16" />
+                        <TextBlock Text="{x:Bind UserCreatorViewModel.JobTitle, Mode=OneWay}" x:Phase="2" FontSize="12" FontStyle="Italic" />
+                        <TextBlock Text="{x:Bind UserCreatorViewModel.Email, Mode=OneWay}" x:Phase="2" FontSize="12" />
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <TextBlock Text="VS" Foreground="#FF0070C0" FontSize="20" Grid.Column="1" 
+                               FontWeight="SemiBold" Opacity="1.0" VerticalAlignment="Center" />
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition  Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="1"   Margin="5"  Source="/Assets/UnknownPerson.jpg"
+                                       Width="50" Height="50" 
+                                       ToolTipService.ToolTip="{x:Bind UserCreatorViewModel.Name}"
+                                       x:Phase="1"
+                                       Stretch="UniformToFill" />
+                    <Image Grid.Column="1"   Margin="5"  
+                                       x:Phase="3" 
+                                       
+                                       Source="{x:Bind UserOpponentViewModel.Photo, Mode=OneWay, FallbackValue='/Assets/UnknownPerson.jpg'}"
+                                       Width="50" Height="50" 
+                                       Stretch="UniformToFill" />
+
+                    <StackPanel Grid.Column="0" Margin="10,0,0,0">
+                        <TextBlock Text="{x:Bind UserOpponentViewModel.Name, Mode=OneWay}" x:Phase="2" FontWeight="Bold" FontSize="16" />
+                        <TextBlock Text="{x:Bind UserOpponentViewModel.JobTitle, Mode=OneWay}" x:Phase="2" FontSize="12" FontStyle="Italic" />
+                        <TextBlock Text="{x:Bind UserOpponentViewModel.Email, Mode=OneWay}" x:Phase="2" FontSize="12" />
+
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
         </Grid>
     </DataTemplate>
 

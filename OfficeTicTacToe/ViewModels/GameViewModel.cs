@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Danvy.ViewModels;
+using OfficeTicTacToe.Common;
+using OfficeTicTacToe.Graph;
 
 namespace OfficeTicTacToe.ViewModels
 {
     public partial class GameViewModel : ViewModelBase
     {
+        private const string EMPTY_GAME = "         ";
+        private const char PAWN_X = 'X';
+        private const char PAWN_O = 'O';
+        private const char PAWN_EMPTY = ' ';
         private int _Id;
         private string _UserIdCreator;
         private string _UserIdOpponent;
         private string _UserIdCurrent;
         private DateTime? _CreatedDate;
         private bool _IsTerminated;
-        private string _Board = "         ";
-        private int? _GameResult;
-        private int? _CurrentPlayerIndex;
+        private string _Board = EMPTY_GAME;
+        private string _InitialBoard = null;
         private string _UserIdWinner;
+        private RelayCommand _UpdateCommand;
 
         public int Id
         {
@@ -46,6 +54,23 @@ namespace OfficeTicTacToe.ViewModels
                     return;
                 _UserIdCreator = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("UserCreatorViewModel");
+            }
+        }
+
+        public UserViewModel UserCreatorViewModel
+        {
+            get
+            {
+                return UserViewModel.GetUser(this.UserIdCreator);
+            }
+        }
+
+        public UserViewModel UserOpponentViewModel
+        {
+            get
+            {
+                return UserViewModel.GetUser(this.UserIdOpponent);
             }
         }
         public string UserIdOpponent
@@ -60,13 +85,22 @@ namespace OfficeTicTacToe.ViewModels
                     return;
                 _UserIdOpponent = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("UserOpponentViewModel");
+
+            }
+        }
+        public char CurrentPawn
+        {
+            get
+            {
+                return UserIdCurrent == UserIdCreator ? PAWN_X : PAWN_O;
             }
         }
         public string UserIdCurrent
         {
             get
             {
-                return _UserIdCurrent;
+                return _UserIdCurrent ?? UserViewModel.CurrentUser;
             }
             set
             {
@@ -98,85 +132,103 @@ namespace OfficeTicTacToe.ViewModels
             }
             set
             {
+                if (_InitialBoard == null)
+                    _InitialBoard = value;
                 if (value == _Board)
                     return;
                 if ((value == null) || (value.Length < 9))
                 {
-                    _Board = "         ";
+                    _Board = EMPTY_GAME;
                 }
                 else
                 {
                     _Board = value;
                 }
                 RaisePropertyChanged();
-                RaisePropertyChanged(() => Cell0);
-                RaisePropertyChanged(() => Cell1);
-                RaisePropertyChanged(() => Cell2);
-                RaisePropertyChanged(() => Cell3);
-                RaisePropertyChanged(() => Cell4);
-                RaisePropertyChanged(() => Cell5);
-                RaisePropertyChanged(() => Cell6);
-                RaisePropertyChanged(() => Cell7);
-                RaisePropertyChanged(() => Cell8);
+                RaisePropertyChanged(() => Cell0Value);
+                RaisePropertyChanged(() => Cell1Value);
+                RaisePropertyChanged(() => Cell2Value);
+                RaisePropertyChanged(() => Cell3Value);
+                RaisePropertyChanged(() => Cell4Value);
+                RaisePropertyChanged(() => Cell5Value);
+                RaisePropertyChanged(() => Cell6Value);
+                RaisePropertyChanged(() => Cell7Value);
+                RaisePropertyChanged(() => Cell8Value);
+                RaisePropertyChanged(() => Cell0Enabled);
+                RaisePropertyChanged(() => Cell1Enabled);
+                RaisePropertyChanged(() => Cell2Enabled);
+                RaisePropertyChanged(() => Cell3Enabled);
+                RaisePropertyChanged(() => Cell4Enabled);
+                RaisePropertyChanged(() => Cell5Enabled);
+                RaisePropertyChanged(() => Cell6Enabled);
+                RaisePropertyChanged(() => Cell7Enabled);
+                RaisePropertyChanged(() => Cell8Enabled);
             }
         }
-        public string Cell0
+        public string InitialBoard
+        {
+            get
+            {
+                return _InitialBoard ?? EMPTY_GAME;
+            }
+        }
+        public string Cell0Value
         {
             get
             {
                 return CellValue(0);
             }
         }
-        public string Cell1
+        public string Cell1Value
         {
             get
             {
                 return CellValue(1);
             }
         }
-        public string Cell2
+        public string Cell2Value
         {
             get
             {
                 return CellValue(2);
             }
         }
-        public string Cell3
+        public string Cell3Value
         {
             get
             {
                 return CellValue(3);
             }
         }
-        public string Cell4
+        public string Cell4Value
         {
             get
             {
                 return CellValue(4);
             }
         }
-        public string Cell5
+        public string Cell5Value
         {
             get
             {
                 return CellValue(5);
             }
         }
-        public string Cell6
+        public string Cell6Value
         {
             get
             {
                 return CellValue(6);
             }
         }
-        public string Cell7
+        public string Cell7Value
         {
             get
             {
                 return CellValue(7);
             }
         }
-        public string Cell8
+        public string Cell8Value
         {
             get
             {
@@ -185,7 +237,74 @@ namespace OfficeTicTacToe.ViewModels
         }
         private string CellValue(int index)
         {
-            return Board.Length > index ? Board[index].ToString() : "?";
+            return Board.Length > index ? Board[index].ToString() : PAWN_EMPTY.ToString();
+        }
+        public bool Cell0Enabled
+        {
+            get
+            {
+                return CellEnabled(0);
+            }
+        }
+        public bool Cell1Enabled
+        {
+            get
+            {
+                return CellEnabled(1);
+            }
+        }
+        public bool Cell2Enabled
+        {
+            get
+            {
+                return CellEnabled(2);
+            }
+        }
+        public bool Cell3Enabled
+        {
+            get
+            {
+                return CellEnabled(3);
+            }
+        }
+        public bool Cell4Enabled
+        {
+            get
+            {
+                return CellEnabled(4);
+            }
+        }
+        public bool Cell5Enabled
+        {
+            get
+            {
+                return CellEnabled(5);
+            }
+        }
+        public bool Cell6Enabled
+        {
+            get
+            {
+                return CellEnabled(6);
+            }
+        }
+        public bool Cell7Enabled
+        {
+            get
+            {
+                return CellEnabled(7);
+            }
+        }
+        public bool Cell8Enabled
+        {
+            get
+            {
+                return CellEnabled(8);
+            }
+        }
+        private bool CellEnabled(int index)
+        {
+            return (Board.Length > index) && (Board[index] == PAWN_EMPTY) && (UserIdCurrent == UserViewModel.CurrentUser);
         }
         public string UserIdWinner
         {
@@ -214,6 +333,40 @@ namespace OfficeTicTacToe.ViewModels
                 _IsTerminated = value;
                 RaisePropertyChanged();
             }
+        }
+        public ICommand UpdateCommand
+        {
+            get
+            {
+                return _UpdateCommand ?? (_UpdateCommand = new RelayCommand(async () =>
+                {
+                    await Update();
+                }));
+            }
+        }
+        private void Assign(GameViewModel game)
+        {
+            if (game == null)
+                return;
+            UserIdCreator = game.UserIdCreator;
+            UserIdOpponent = game.UserIdOpponent;
+            UserIdCurrent = game.UserIdCurrent;
+            UserIdWinner = game.UserIdWinner;
+            CreatedDate = game.CreatedDate;
+            IsTerminated = game.IsTerminated;
+            _InitialBoard = null;
+            _Board = EMPTY_GAME;
+            Board = game.Board;
+        }
+        public async Task Update()
+        {
+            Debug.WriteLine("Before=" + UserIdCurrent + " " + Board + "|" + InitialBoard);
+            Assign(await GameHelper.Current.UpdateGameAsync(this));
+            Debug.WriteLine("After=" + UserIdCurrent + " " + Board + "|" + InitialBoard);
+        }
+        public async Task Refresh()
+        {
+            Assign(await GameHelper.Current.GetGameAsync(Id));
         }
     }
 }

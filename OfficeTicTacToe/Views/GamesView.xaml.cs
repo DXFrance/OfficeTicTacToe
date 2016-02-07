@@ -35,6 +35,9 @@ namespace OfficeTicTacToe.Views
         private static readonly object lockObject = new object();
         public ObservableCollection<UserViewModel> Users { get; set; }
         public ObservableCollection<GameViewModel> Games { get; set; }
+        public ObservableCollection<UserViewModel> TeamWork { get; set; }
+
+
         private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
         private CancellationTokenSource tokenSource;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -64,6 +67,8 @@ namespace OfficeTicTacToe.Views
             this.InitializeComponent();
             Users = new ObservableCollection<UserViewModel>();
             Games = new ObservableCollection<GameViewModel>();
+            TeamWork = new ObservableCollection<UserViewModel>();
+
             AutoSuggestBox.Text = string.Empty;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
@@ -98,6 +103,36 @@ namespace OfficeTicTacToe.Views
                 foreach (var game in games)
                 {
                     Games.Add(game);
+                }
+            }
+
+            List<string> usersMail = new List<string>();
+            foreach (var g in Games)
+            {
+                usersMail.Add(g.UserIdCreator);
+                usersMail.Add(g.UserIdOpponent);
+            }
+
+            var usersMailTab = usersMail.Distinct().ToList();
+
+            await UserViewModel.UpdateUsersFromSharepointAsync(usersMailTab, CancellationToken.None);
+
+            if (this.TeamWork.Count == 0)
+            {
+
+                var me = UserViewModel.GetUser(UserViewModel.CurrentUser);
+                var me2 = await SharePointSearchHelper.SPGetUsers(new[] { me.UserPrincipalName });
+
+                if (me2.Count <= 0)
+                    return;
+
+                var teamWork = await SharePointSearchHelper.SPGetWorkingWithUsers(me2[0].DocId);
+
+                List<UserViewModel> users = new List<UserViewModel>();
+                foreach (var u in teamWork)
+                {
+                    UserViewModel uvm = UserViewModel.MergeFromSharepoint(UserViewModel.GetUser(u.UserName), u);
+                    this.TeamWork.Add(uvm);
                 }
             }
         }
@@ -228,6 +263,31 @@ namespace OfficeTicTacToe.Views
                 return;
             //GameCommand.Execute(null);
             AppShell.Current.Navigate(typeof(BoardView), game);
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = "jarvis@tictactoe.com";
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+
+        }
+
+
+
+        private async void WorkTeamListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = (e.ClickedItem as UserViewModel).UserPrincipalName;
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+
+
         }
     }
 }

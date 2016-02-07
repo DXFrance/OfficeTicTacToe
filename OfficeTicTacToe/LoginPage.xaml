@@ -288,17 +288,16 @@
                         <RowDefinition  Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="0,10,0,0" HorizontalAlignment="Center"
+                    <!--<TextBlock Margin="0,10,0,0" HorizontalAlignment="Center"
                                FontSize="40" 
                                FontWeight="Bold"
-                               Foreground="#FF0070C0" Text="OfficeTicTacToe" />
-                    <TextBlock Margin="10,30,10,30" Grid.Row="1" HorizontalAlignment="Stretch"
-                               FontSize="24"
-                               
-                               TextWrapping="WrapWholeWords"
-                               Foreground="#FF0070C0" Text="Tic Tac Toe !!!" />
+                               Foreground="#FF0070C0" Text="Office TicTacToe" />-->
+                    
 
-                    <Image Source="Assets/LogotypeMid.png" MaxWidth="300" Grid.Row="2" />
+                    <Image Source="Assets/LogotypeMid.png" MaxWidth="300" Grid.Row="1" />
+
+                    <Image Source="Assets/Screen1.png" MaxWidth="300" Grid.Row="2" />
+
 
                     <Button Content="Login"  Click="LoginButton_Click" Grid.Row="3" HorizontalAlignment="Center" 
                             Foreground="White" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
