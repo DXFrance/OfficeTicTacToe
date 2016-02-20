@@ -16,8 +16,12 @@ namespace OfficeTicTacToe.Graph
     public class GameHelper
     {
         
-       //private const string ServerUri = "http://localhost:17225";
-        private const string ServerUri = "http://prod-officetictactoe.azurewebsites.net";
+        private const string _ServerUri = "http://localhost:17225";
+        //private const string _ServerUri = "http://prod-officetictactoe.azurewebsites.net";
+
+        private string _QServiceUrlSuffixe = "/api/qtrainer/nextvalue/";
+        private const string _markovName = "markov@tictactoe.com";
+        private string _stateToken;
 
         private static GameHelper current;
 
@@ -39,7 +43,7 @@ namespace OfficeTicTacToe.Graph
                 if (!game.CreatedDate.HasValue)
                     game.CreatedDate = DateTime.UtcNow;
 
-                var uri = new Uri(ServerUri + "/api/Games");
+                var uri = new Uri(_ServerUri + "/api/Games");
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
 
@@ -58,11 +62,25 @@ namespace OfficeTicTacToe.Graph
                 if (!move.CreatedDate.HasValue)
                     move.CreatedDate = DateTime.UtcNow;
 
-                var uri = new Uri(ServerUri + "/api/Games/" + move.Id + "/update");
+                var uri = new Uri(_ServerUri + "/api/Games/" + move.Id + "/update");
 
                 StringContent scontent = new StringContent(JsonConvert.SerializeObject(move));
 
-                return await this.PostAsync<GameViewModel>(uri, scontent);
+                if (move.UserIdOpponent == _markovName)
+                {
+                    int cellId = 1; // temporary value -> to update afterwards
+                    _stateToken = _stateToken + cellId;
+                    using (var client = new HttpClient())
+                    {
+                        var r = new Uri(new Uri(_ServerUri + _QServiceUrlSuffixe), _stateToken);
+                        _stateToken = await client.GetStringAsync(r);
+                        // following two temporary lines -> to update afterwards
+                        int lastMove = int.Parse(_stateToken.Last().ToString());
+                        return await this.PostAsync<GameViewModel>(uri, scontent);
+                    }
+                }
+                else
+                    return await this.PostAsync<GameViewModel>(uri, scontent);
             }
             catch (Exception ex)
             {
@@ -71,31 +89,32 @@ namespace OfficeTicTacToe.Graph
             }
         }
 
-        public async Task<GameViewModel> GetJarvisMoveAsync(string userId, GameViewModel game)
+
+    //public async Task<GameViewModel> GetJarvisMoveAsync(string userId, GameViewModel game)
+    //{
+    //    try
+    //    {
+    //        var uri = new Uri(ServerUri + "/api/Games/Move/Jarvis/" + userId + "/");
+
+    //        StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
+
+    //        var newGame = await this.PostAsync<GameViewModel>(uri, scontent);
+
+    //        return newGame;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex.Message);
+    //        return null;
+    //    }
+    //}
+
+
+    public async Task<GameViewModel> GetGameAsync(int id)
         {
             try
             {
-                var uri = new Uri(ServerUri + "/api/Games/Move/Jarvis/" + userId + "/");
-
-                StringContent scontent = new StringContent(JsonConvert.SerializeObject(game));
-
-                var newGame = await this.PostAsync<GameViewModel>(uri, scontent);
-
-                return newGame;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-        }
-      
-
-        public async Task<GameViewModel> GetGameAsync(int id)
-        {
-            try
-            {
-                var uri = new Uri(ServerUri + "/api/Games/" + id);
+                var uri = new Uri(_ServerUri + "/api/Games/" + id);
                 return await this.GetAsync<GameViewModel>(uri);
             }
             catch (Exception ex)
@@ -108,7 +127,7 @@ namespace OfficeTicTacToe.Graph
         {
             try
             {
-                var uri = new Uri(ServerUri + "/api/Games");
+                var uri = new Uri(_ServerUri + "/api/Games");
                 return await this.GetAsync<List<GameViewModel>>(uri);
             }
             catch (Exception ex)
@@ -122,7 +141,7 @@ namespace OfficeTicTacToe.Graph
         {
             try
             {
-                 var uri = new Uri(ServerUri + "/api/Games/Users/" + System.Net.WebUtility.UrlEncode(userId) + "/");
+                 var uri = new Uri(_ServerUri + "/api/Games/Users/" + System.Net.WebUtility.UrlEncode(userId) + "/");
                 return await this.GetAsync<List<GameViewModel>>(uri);
             }
             catch (Exception ex)
@@ -138,7 +157,7 @@ namespace OfficeTicTacToe.Graph
         {
             try
             {
-                var uri = new Uri(ServerUri + "/api/Games/" + id);
+                var uri = new Uri(_ServerUri + "/api/Games/" + id);
                 await this.DeleteAsync<GameViewModel>(uri);
             }
             catch (Exception ex)
@@ -198,6 +217,7 @@ namespace OfficeTicTacToe.Graph
             }
             return default(T);
         }
+
         private async Task<T> PutAsync<T>(Uri uri, StringContent content)
         {
             using (HttpClient client = new HttpClient())

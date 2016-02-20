@@ -18,7 +18,6 @@ namespace OfficeTicTacToe.Server.Controllers
     public class GamesController : ApiController
     {
         private const string jarvisName = "jarvis@tictactoe.com";
-        private const string markovName = "markov@tictactoe.com";
         private OfficeTicTacToeEntities db = new OfficeTicTacToeEntities();
 
         // GET: api/Games
@@ -105,6 +104,7 @@ namespace OfficeTicTacToe.Server.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -125,6 +125,7 @@ namespace OfficeTicTacToe.Server.Controllers
                 var isEnded = engine.MakeBestMove(isMachineTurn);
                 game.Board = engine.Board;
             }
+
             else
             {
                 game.UserIdCurrent = game.UserIdCurrent == game.UserIdCreator ? game.UserIdOpponent : game.UserIdCreator;
