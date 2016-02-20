@@ -500,7 +500,7 @@ namespace OfficeTicTacToe.ViewModels
                 throw;
             }
         }
-      
+
         internal static UserViewModel MergeFromSharepoint(UserViewModel userViewModel, SPItemUser u)
         {
             userViewModel.DocId = u.DocId;
@@ -517,9 +517,27 @@ namespace OfficeTicTacToe.ViewModels
             userViewModel.FirstName = u.FirstName;
 
             if (string.IsNullOrEmpty(userViewModel.UserPrincipalName))
-                userViewModel.UserPrincipalName = u.UserName.Trim() ;
+                userViewModel.UserPrincipalName = u.UserName.Trim();
 
             userViewModel.IsLoadedFromSharePoint = true;
+
+            return userViewModel;
+        }
+
+        internal static UserViewModel MergeFromComputerIA(ComputerIA u)
+        {
+            UserViewModel userViewModel = new UserViewModel();
+            userViewModel.id = u.Id.ToString();
+            userViewModel.Name = u.Name;
+            userViewModel.JobTitle = u.JobTitle;
+            userViewModel.Email = u.Email;
+            userViewModel.photoUri = u.PictureUri;
+
+            var folder = ApplicationData.Current.LocalFolder;
+            BitmapImage photo = new BitmapImage(userViewModel.photoUri);
+
+            userViewModel.Photo = (ImageSource) photo;
+            userViewModel.IsLoadedPhoto = true;
 
             return userViewModel;
         }

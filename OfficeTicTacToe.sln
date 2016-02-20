@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{58EA
 		Ops\Scripts\Dev-Unprovision.ps1 = Ops\Scripts\Dev-Unprovision.ps1
 		Ops\Scripts\Prod-Provision.ps1 = Ops\Scripts\Prod-Provision.ps1
 		Ops\Scripts\QA-Provision.ps1 = Ops\Scripts\QA-Provision.ps1
+		Ops\Scripts\QA-Unprovision.ps1 = Ops\Scripts\QA-Unprovision.ps1
 		Ops\Scripts\RM-Dev-Unprovision.ps1 = Ops\Scripts\RM-Dev-Unprovision.ps1
 		Ops\Scripts\ServicePrincipalAssignment.ps1 = Ops\Scripts\ServicePrincipalAssignment.ps1
 	EndProjectSection

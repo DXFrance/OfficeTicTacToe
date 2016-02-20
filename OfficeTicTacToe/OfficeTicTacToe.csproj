@@ -118,6 +118,7 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\GraphExtensions.cs" />
     <Compile Include="Graph\AuthenticationHelper.cs" />
+    <Compile Include="Graph\ComputerIA.cs" />
     <Compile Include="Graph\GameHelper.cs" />
     <Compile Include="Graph\Microsoft.Graph.cs" />
     <Compile Include="Graph\Request.cs" />
@@ -185,10 +186,11 @@
     <Content Include="Assets\Icon-pptx.png" />
     <Content Include="Assets\Icon-xlsx.png" />
     <Content Include="Assets\icon-zip.png" />
-    <Content Include="Assets\jarvis.PNG" />
+    <Content Include="Assets\Jarvis.png" />
     <Content Include="Assets\LogoColor.PNG" />
     <Content Include="Assets\LogoMid.png" />
     <Content Include="Assets\LogotypeMid.png" />
+    <Content Include="Assets\Markov.png" />
     <Content Include="Assets\screen1.PNG" />
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
     <Content Include="Assets\Square71x71Logo.scale-200.png" />

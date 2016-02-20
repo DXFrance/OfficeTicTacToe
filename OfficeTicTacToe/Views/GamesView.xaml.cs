@@ -36,7 +36,7 @@ namespace OfficeTicTacToe.Views
         public ObservableCollection<UserViewModel> Users { get; set; }
         public ObservableCollection<GameViewModel> Games { get; set; }
         public ObservableCollection<UserViewModel> TeamWork { get; set; }
-
+        public ObservableCollection<UserViewModel> ComputerIAs { get; set; }
 
         private Microsoft.Graph.GraphService graph = AuthenticationHelper.GetGraphService();
         private CancellationTokenSource tokenSource;
@@ -68,6 +68,24 @@ namespace OfficeTicTacToe.Views
             Users = new ObservableCollection<UserViewModel>();
             Games = new ObservableCollection<GameViewModel>();
             TeamWork = new ObservableCollection<UserViewModel>();
+            ComputerIAs = new ObservableCollection<UserViewModel>();
+
+            var JarvisIA = new ComputerIA();
+            JarvisIA.Id = 1;
+            JarvisIA.Name = "Jarvis";
+            JarvisIA.Email = "jarvis@tictactoe.com";
+            JarvisIA.PictureUri = new Uri("ms-appx:///Assets/Jarvis.png");
+            JarvisIA.JobTitle = "FullTime IA";
+            UserViewModel jarvis = UserViewModel.MergeFromComputerIA(JarvisIA);
+            ComputerIAs.Add(jarvis);
+            var MarkovIA = new ComputerIA();
+            JarvisIA.Id = 2;
+            MarkovIA.Name = "Markov";
+            MarkovIA.Email = "markov@tictactoe.com";
+            MarkovIA.PictureUri = new Uri("ms-appx:///Assets/Markov.png");
+            MarkovIA.JobTitle = "FullTime IA";
+            UserViewModel markov = UserViewModel.MergeFromComputerIA(MarkovIA);
+            ComputerIAs.Add(markov);
 
             AutoSuggestBox.Text = string.Empty;
             this.NavigationCacheMode = NavigationCacheMode.Required;
@@ -264,8 +282,18 @@ namespace OfficeTicTacToe.Views
             //GameCommand.Execute(null);
             AppShell.Current.Navigate(typeof(BoardView), game);
         }
+        private async void ComputersListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var userViewModel = e?.ClickedItem as UserViewModel;
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = userViewModel.Email;
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+        }
+        private async void JarvisButton_Click(object sender, RoutedEventArgs e)
         {
             var game = new GameViewModel();
             game.CreatedDate = DateTime.Now;
@@ -276,6 +304,16 @@ namespace OfficeTicTacToe.Views
 
         }
 
+        private async void MarkovButton_Click(object sender, RoutedEventArgs e)
+        {
+            var game = new GameViewModel();
+            game.CreatedDate = DateTime.Now;
+            game.UserIdCreator = UserViewModel.CurrentUser;
+            game.UserIdOpponent = "markov@tictactoe.com";
+            game = await GameHelper.Current.CreateGameAsync(game);
+            AppShell.Current.Navigate(typeof(BoardView), game);
+
+        }
 
 
         private async void WorkTeamListView_ItemClick(object sender, ItemClickEventArgs e)

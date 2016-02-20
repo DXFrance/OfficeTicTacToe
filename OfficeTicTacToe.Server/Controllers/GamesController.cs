@@ -18,6 +18,7 @@ namespace OfficeTicTacToe.Server.Controllers
     public class GamesController : ApiController
     {
         private const string jarvisName = "jarvis@tictactoe.com";
+        private const string markovName = "markov@tictactoe.com";
         private OfficeTicTacToeEntities db = new OfficeTicTacToeEntities();
 
         // GET: api/Games

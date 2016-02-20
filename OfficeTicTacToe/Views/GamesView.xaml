@@ -31,27 +31,26 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <ListView x:Name="GamesListView"
-                  ItemsSource="{x:Bind Games, Mode=OneWay}" 
-                  Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
-                  HorizontalAlignment="Stretch"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  SelectionMode="None"
-                  ItemClick="GamesListView_ItemClick"
-                  ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
-                  IsItemClickEnabled="True"   
-                  IsRightTapEnabled="False"
-                  IsDoubleTapEnabled="False"
-                                  ItemTemplate="{StaticResource GameViewModelTemplate}"
-                  HorizontalContentAlignment="Stretch">
-   
+                              ItemsSource="{x:Bind Games, Mode=OneWay}" 
+                              Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
+                              HorizontalAlignment="Stretch"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              SelectionMode="None"
+                              ItemClick="GamesListView_ItemClick"
+                              ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
+                              IsItemClickEnabled="True"   
+                              IsRightTapEnabled="False"
+                              IsDoubleTapEnabled="False"
+                                              ItemTemplate="{StaticResource GameViewModelTemplate}"
+                              HorizontalContentAlignment="Stretch">
                         </ListView>
                     </Grid>
                 </PivotItem>
+                
                 <PivotItem>
                     <PivotItem.Header>
                         <ctrl:PivotItemHeaderControl Symbol="Find" />
                     </PivotItem.Header>
-
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -63,27 +62,28 @@
                         QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
                         <Border Name="BorderListView" Grid.Row="2" BorderThickness="0" >
                             <ListView    
-                  Name="ListViewResearch"
-                  ItemsSource="{x:Bind Users, Mode=OneWay}" 
-                  Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
-                  HorizontalAlignment="Stretch"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  SelectionMode="None"
-                  ItemClick="UserViewModel_ItemClick"
-                  ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
-                  IsItemClickEnabled="True"   
-                  IsRightTapEnabled="False"
-                  IsDoubleTapEnabled="False"
-                  IsTapEnabled="False"
-                  ItemTemplate="{StaticResource UserViewModelTemplate}"
-                  HorizontalContentAlignment="Stretch" />
+                                  Name="ListViewResearch"
+                                  ItemsSource="{x:Bind Users, Mode=OneWay}" 
+                                  Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource NotBooleanVisibilityConverter}}"
+                                  HorizontalAlignment="Stretch"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  SelectionMode="None"
+                                  ItemClick="UserViewModel_ItemClick"
+                                  ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
+                                  IsItemClickEnabled="True"   
+                                  IsRightTapEnabled="False"
+                                  IsDoubleTapEnabled="False"
+                                  IsTapEnabled="False"
+                                  ItemTemplate="{StaticResource UserViewModelTemplate}"
+                                  HorizontalContentAlignment="Stretch" />
                         </Border>
                         <ctrl:PivotItemWaiter Grid.Row="2" x:Name="PivotItemWaiterLastFiles" 
                             Text="search in progress ..."
                             Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource BooleanVisibilityConverter}}"/>
                     </Grid>
                 </PivotItem>
-                <PivotItem Tag="user team work">
+
+                <PivotItem Tag="User team">
                     <PivotItem.Header>
                         <ctrl:PivotItemHeaderControl Symbol="People" />
                     </PivotItem.Header>
@@ -117,12 +117,46 @@
                     </PivotItem.Content>
                 </PivotItem>
 
+                <PivotItem Tag="Computer team">
+                    <PivotItem.Header>
+                        <ctrl:PivotItemHeaderControl Symbol="NewFolder" />
+                    </PivotItem.Header>
+                    <PivotItem.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ListView ItemsSource="{x:Bind ComputerIAs, Mode=OneWay}" 
+                                  ItemClick="ComputersListView_ItemClick"
+                                  HorizontalAlignment="Stretch"
+                                  Grid.Row="1" 
+                                  x:Name="ComputersListView"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  SelectionMode="None"
+                                  ItemContainerStyle="{StaticResource ItemsViewItemStyle}"
+                                  IsItemClickEnabled="True"   
+                                  IsRightTapEnabled="False"
+                                  IsDoubleTapEnabled="False"
+                                  IsTapEnabled="False"
+                                  ItemTemplate="{StaticResource UserViewModelTemplate}"
+                                  HorizontalContentAlignment="Stretch">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsStackPanel CacheLength="4" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </Grid>
+                    </PivotItem.Content>
+                </PivotItem>
+
                 <PivotItem Tag="Jarvis" >
                     <PivotItem.Header>
                         <ctrl:PivotItemHeaderControl Symbol="NewFolder" />
                     </PivotItem.Header>
                     <PivotItem.Content>
-                        <Button Click="Button_Click" HorizontalAlignment="Stretch" Padding="0" HorizontalContentAlignment="Stretch">
+                        <Button Click="JarvisButton_Click" HorizontalAlignment="Stretch" Padding="0" HorizontalContentAlignment="Stretch">
                             <Grid  Margin="0,0,0,0" Background="White" HorizontalAlignment="Stretch" Height="60">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -131,26 +165,19 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Border BorderBrush="#C6C6C6C6" Grid.ColumnSpan="4" BorderThickness="1" />
-
                                 <Grid Grid.Column="0">
-                                    <Image Name="WaitingImage" Margin="5"  Source="/Assets/jarvis.png"
-                                       Width="50" Height="50" 
-                                       
+                                    <Image Name="WaitingImage" Margin="5"  Source="/Assets/Jarvis.png"
+                                       Width="50" Height="50"                         
                                        Stretch="UniformToFill" />
-                                  
-
                                 </Grid>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Jarvis" FontWeight="Bold" FontSize="16" />
                                     <TextBlock Text="TicTacToe Killer IA"  FontSize="12" FontStyle="Italic" />
                                 </StackPanel>
-
                             </Grid>
-
                         </Button>
                     </PivotItem.Content>
                 </PivotItem>
-
 
             </Pivot>
         </StackPanel>
