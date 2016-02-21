@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="OfficeTicTacToe.Actors.SFType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+   <Parameters>
+      <Parameter Name="QStateActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="QStateActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="QStateActorService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="QTrainedStateActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="QTrainedStateActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="QTrainedStateActorService_TargetReplicaSetSize" DefaultValue="3" />
+   </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="OfficeTicTacToe.ActorsPkg" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
+   <DefaultServices>
+      <Service Name="QStateActorService" GeneratedIdRef="bf047de3-fe4f-4ee9-9d01-0e79fd0a3be0">
+         <StatefulService ServiceTypeName="QTicTacToeStateActorServiceType" TargetReplicaSetSize="[QStateActorService_TargetReplicaSetSize]" MinReplicaSetSize="[QStateActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[QStateActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="QTrainedStateActorService" GeneratedIdRef="4f051734-7065-4acb-a12f-0fa7c245d09c">
+         <StatefulService ServiceTypeName="QTrainedStateActorServiceType" TargetReplicaSetSize="[QTrainedStateActorService_TargetReplicaSetSize]" MinReplicaSetSize="[QTrainedStateActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[QTrainedStateActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+   </DefaultServices>
+</ApplicationManifest>

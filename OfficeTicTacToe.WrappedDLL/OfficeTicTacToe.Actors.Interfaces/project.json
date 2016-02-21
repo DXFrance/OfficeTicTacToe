@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../OfficeTicTacToe.Actors.Interface/OfficeTicTacToe.Actors.Interface.csproj",
+      "bin": {
+        "assembly": "../../OfficeTicTacToe.Actors.Interface/bin/x64/{configuration}/OfficeTicTacToe.Actors.Interface.dll",
+        "pdb": "../../OfficeTicTacToe.Actors.Interface/bin/x64/{configuration}/OfficeTicTacToe.Actors.Interface.pdb",
+      },
+      "dependencies": {
+        "Microsoft.ServiceFabric": "4.4.87-preview",
+        "Microsoft.ServiceFabric.Actors": "1.4.87-preview",
+        "Microsoft.ServiceFabric.Data": "1.4.87-preview",
+        "Microsoft.ServiceFabric.Services": "1.4.87-preview"
+      }
+    }
+  }
+}
