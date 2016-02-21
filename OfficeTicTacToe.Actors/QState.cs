@@ -39,7 +39,7 @@ namespace OfficeTicTacToe.Actors
              var ts = new List<Task>();
 
              if (rwd == null || !rwd.IsAbsorbent)
-                 ts.AddRange(GetTransitions(stateToken).Select(p => ActorProxy.Create<IQState>(ActorId.NewId(), "fabric:/QLearningServiceFab").TransitionAsync(stateToken, p)));
+                 ts.AddRange(GetTransitions(stateToken).Select(p => ActorProxy.Create<IQState>(ActorId.NewId(), "fabric:/OfficeTicTacToe.Actors.SF").TransitionAsync(stateToken, p)));
 
              if (rwd != null)
                  ts.Add(RegisterReminderAsync("SetReward", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(rwd))
@@ -59,7 +59,7 @@ namespace OfficeTicTacToe.Actors
              {
                  var reward = stateReward;
                  t.Add(ActorProxy
-                     .Create<IQTrainedState>(new ActorId(pastState.StateToken), "fabric:/QLearningServiceFab")
+                     .Create<IQTrainedState>(new ActorId(pastState.StateToken), "fabric:/OfficeTicTacToe.Actors.SF")
                      .AddChildQTrainedStateAsync(pastState.NextStateToken, reward));
 
                  stateReward = stateReward * discount;
