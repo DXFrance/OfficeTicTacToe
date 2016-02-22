@@ -5,6 +5,8 @@ using Microsoft.ServiceFabric.Actors;
 using OfficeTicTacToe.Actors.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+//https://github.com/Azure-Samples/service-fabric-dotnet-getting-started/issues/6
+// I was unable to add a project name that had more than 4 characters
 
 namespace OfficeTicTacToe.WebAPI.Controllers
 {
